@@ -1,0 +1,607 @@
+[
+  {
+    "Code": "BR01",
+    "Name": "動物園",
+    "TimeTableId": 0
+  },
+  {
+    "Code": "BR02",
+    "Name": "木柵",
+    "TimeTableId": 0
+  },
+  {
+    "Code": "BR03",
+    "Name": "萬芳社區",
+    "TimeTableId": 0
+  },
+  {
+    "Code": "BR04",
+    "Name": "萬芳醫院",
+    "TimeTableId": 0
+  },
+  {
+    "Code": "BR05",
+    "Name": "辛亥",
+    "TimeTableId": 0
+  },
+  {
+    "Code": "BR06",
+    "Name": "麟光",
+    "TimeTableId": 0
+  },
+  {
+    "Code": "BR07",
+    "Name": "六張犁",
+    "TimeTableId": 0
+  },
+  {
+    "Code": "BR08",
+    "Name": "科技大樓",
+    "TimeTableId": 0
+  },
+  {
+    "Code": "BR09",
+    "Name": "大安",
+    "TimeTableId": 0
+  },
+  {
+    "Code": "BR10",
+    "Name": "忠孝復興",
+    "TimeTableId": 0
+  },
+  {
+    "Code": "BR11",
+    "Name": "南京復興",
+    "TimeTableId": 0
+  },
+  {
+    "Code": "BR12",
+    "Name": "中山國中",
+    "TimeTableId": 0
+  },
+  {
+    "Code": "BR13",
+    "Name": "松山機場",
+    "TimeTableId": 0
+  },
+  {
+    "Code": "BR14",
+    "Name": "大直",
+    "TimeTableId": 0
+  },
+  {
+    "Code": "BR15",
+    "Name": "劍南路",
+    "TimeTableId": 0
+  },
+  {
+    "Code": "BR16",
+    "Name": "西湖",
+    "TimeTableId": 0
+  },
+  {
+    "Code": "BR17",
+    "Name": "港墘",
+    "TimeTableId": 0
+  },
+  {
+    "Code": "BR18",
+    "Name": "文德",
+    "TimeTableId": 0
+  },
+  {
+    "Code": "BR19",
+    "Name": "內湖",
+    "TimeTableId": 0
+  },
+  {
+    "Code": "BR20",
+    "Name": "大湖公園",
+    "TimeTableId": 0
+  },
+  {
+    "Code": "BR21",
+    "Name": "葫洲",
+    "TimeTableId": 0
+  },
+  {
+    "Code": "BR22",
+    "Name": "東湖",
+    "TimeTableId": 0
+  },
+  {
+    "Code": "BR23",
+    "Name": "南港軟體園區",
+    "TimeTableId": 0
+  },
+  {
+    "Code": "BR24",
+    "Name": "南港展覽館",
+    "TimeTableId": 0
+  },
+  {
+    "Code": "R02",
+    "Name": "象山",
+    "TimeTableId": 99
+  },
+  {
+    "Code": "R03",
+    "Name": "台北101/世貿",
+    "TimeTableId": 100
+  },
+  {
+    "Code": "R04",
+    "Name": "信義安和",
+    "TimeTableId": 101
+  },
+  {
+    "Code": "R05",
+    "Name": "大安",
+    "TimeTableId": 11
+  },
+  {
+    "Code": "R06",
+    "Name": "大安森林公園",
+    "TimeTableId": 103
+  },
+  {
+    "Code": "R07",
+    "Name": "東門",
+    "TimeTableId": 134
+  },
+  {
+    "Code": "R08",
+    "Name": "中正紀念堂",
+    "TimeTableId": 42
+  },
+  {
+    "Code": "R09",
+    "Name": "台大醫院",
+    "TimeTableId": 50
+  },
+  {
+    "Code": "R10",
+    "Name": "台北車站",
+    "TimeTableId": 51
+  },
+  {
+    "Code": "R11",
+    "Name": "中山",
+    "TimeTableId": 53
+  },
+  {
+    "Code": "R12",
+    "Name": "雙連",
+    "TimeTableId": 54
+  },
+  {
+    "Code": "R13",
+    "Name": "民權西路",
+    "TimeTableId": 55
+  },
+  {
+    "Code": "R14",
+    "Name": "圓山",
+    "TimeTableId": 56
+  },
+  {
+    "Code": "R15",
+    "Name": "劍潭",
+    "TimeTableId": 57
+  },
+  {
+    "Code": "R16",
+    "Name": "士林",
+    "TimeTableId": 58
+  },
+  {
+    "Code": "R17",
+    "Name": "芝山",
+    "TimeTableId": 59
+  },
+  {
+    "Code": "R18",
+    "Name": "明德",
+    "TimeTableId": 60
+  },
+  {
+    "Code": "R19",
+    "Name": "石牌",
+    "TimeTableId": 61
+  },
+  {
+    "Code": "R20",
+    "Name": "唭哩岸",
+    "TimeTableId": 62
+  },
+  {
+    "Code": "R21",
+    "Name": "奇岩",
+    "TimeTableId": 63
+  },
+  {
+    "Code": "R22",
+    "Name": "北投",
+    "TimeTableId": 64
+  },
+  {
+    "Code": "R22A",
+    "Name": "新北投",
+    "TimeTableId": 65
+  },
+  {
+    "Code": "R23",
+    "Name": "復興崗",
+    "TimeTableId": 66
+  },
+  {
+    "Code": "R24",
+    "Name": "忠義",
+    "TimeTableId": 67
+  },
+  {
+    "Code": "R25",
+    "Name": "關渡",
+    "TimeTableId": 68
+  },
+  {
+    "Code": "R26",
+    "Name": "竹圍",
+    "TimeTableId": 69
+  },
+  {
+    "Code": "R27",
+    "Name": "紅樹林",
+    "TimeTableId": 70
+  },
+  {
+    "Code": "R28",
+    "Name": "淡水",
+    "TimeTableId": 71
+  },
+  {
+    "Code": "G01",
+    "Name": "新店",
+    "TimeTableId": 33
+  },
+  {
+    "Code": "G02",
+    "Name": "新店區公所",
+    "TimeTableId": 34
+  },
+  {
+    "Code": "G03",
+    "Name": "七張",
+    "TimeTableId": 35
+  },
+  {
+    "Code": "G03A",
+    "Name": "小碧潭",
+    "TimeTableId": 32
+  },
+  {
+    "Code": "G04",
+    "Name": "大坪林",
+    "TimeTableId": 36
+  },
+  {
+    "Code": "G05",
+    "Name": "景美",
+    "TimeTableId": 37
+  },
+  {
+    "Code": "G06",
+    "Name": "萬隆",
+    "TimeTableId": 38
+  },
+  {
+    "Code": "G07",
+    "Name": "公館",
+    "TimeTableId": 39
+  },
+  {
+    "Code": "G08",
+    "Name": "台電大樓",
+    "TimeTableId": 40
+  },
+  {
+    "Code": "G09",
+    "Name": "古亭",
+    "TimeTableId": 41
+  },
+  {
+    "Code": "G10",
+    "Name": "中正紀念堂",
+    "TimeTableId": 42
+  },
+  {
+    "Code": "G11",
+    "Name": "小南門",
+    "TimeTableId": 43
+  },
+  {
+    "Code": "G12",
+    "Name": "西門",
+    "TimeTableId": 86
+  },
+  {
+    "Code": "G13",
+    "Name": "北門",
+    "TimeTableId": 105
+  },
+  {
+    "Code": "G14",
+    "Name": "中山",
+    "TimeTableId": 53
+  },
+  {
+    "Code": "G15",
+    "Name": "松江南京",
+    "TimeTableId": 132
+  },
+  {
+    "Code": "G16",
+    "Name": "南京復興",
+    "TimeTableId": 9
+  },
+  {
+    "Code": "G17",
+    "Name": "台北小巨蛋",
+    "TimeTableId": 109
+  },
+  {
+    "Code": "G18",
+    "Name": "南京三民",
+    "TimeTableId": 110
+  },
+  {
+    "Code": "G19",
+    "Name": "松山",
+    "TimeTableId": 111
+  },
+  {
+    "Code": "O01",
+    "Name": "南勢角",
+    "TimeTableId": 48
+  },
+  {
+    "Code": "O02",
+    "Name": "景安",
+    "TimeTableId": 47
+  },
+  {
+    "Code": "O03",
+    "Name": "永安市場",
+    "TimeTableId": 46
+  },
+  {
+    "Code": "O04",
+    "Name": "頂溪",
+    "TimeTableId": 45
+  },
+  {
+    "Code": "O05",
+    "Name": "古亭",
+    "TimeTableId": 41
+  },
+  {
+    "Code": "O06",
+    "Name": "東門",
+    "TimeTableId": 134
+  },
+  {
+    "Code": "O07",
+    "Name": "忠孝新生",
+    "TimeTableId": 89
+  },
+  {
+    "Code": "O08",
+    "Name": "松江南京",
+    "TimeTableId": 132
+  },
+  {
+    "Code": "O09",
+    "Name": "行天宮",
+    "TimeTableId": 131
+  },
+  {
+    "Code": "O10",
+    "Name": "中山國小",
+    "TimeTableId": 130
+  },
+  {
+    "Code": "O11",
+    "Name": "民權西路",
+    "TimeTableId": 55
+  },
+  {
+    "Code": "O12",
+    "Name": "大橋頭",
+    "TimeTableId": 128
+  },
+  {
+    "Code": "O13",
+    "Name": "台北橋",
+    "TimeTableId": 127
+  },
+  {
+    "Code": "O14",
+    "Name": "菜寮",
+    "TimeTableId": 126
+  },
+  {
+    "Code": "O15",
+    "Name": "三重",
+    "TimeTableId": 125
+  },
+  {
+    "Code": "O16",
+    "Name": "先嗇宮",
+    "TimeTableId": 124
+  },
+  {
+    "Code": "O17",
+    "Name": "頭前庄",
+    "TimeTableId": 123
+  },
+  {
+    "Code": "O18",
+    "Name": "新莊",
+    "TimeTableId": 122
+  },
+  {
+    "Code": "O19",
+    "Name": "輔大",
+    "TimeTableId": 121
+  },
+  {
+    "Code": "O20",
+    "Name": "丹鳳",
+    "TimeTableId": 180
+  },
+  {
+    "Code": "O21",
+    "Name": "迴龍",
+    "TimeTableId": 179
+  },
+  {
+    "Code": "O50",
+    "Name": "三重國小",
+    "TimeTableId": 178
+  },
+  {
+    "Code": "O51",
+    "Name": "三和國中",
+    "TimeTableId": 177
+  },
+  {
+    "Code": "O52",
+    "Name": "徐匯中學",
+    "TimeTableId": 176
+  },
+  {
+    "Code": "O53",
+    "Name": "三民高中",
+    "TimeTableId": 175
+  },
+   {
+    "Code": "O54",
+    "Name": "蘆洲",
+    "TimeTableId": 174
+  },
+  {
+    "Code": "BL01",
+    "Name": "頂埔",
+    "TimeTableId": 76
+  },
+  {
+    "Code": "BL02",
+    "Name": "永寧",
+    "TimeTableId": 77
+  },
+  {
+    "Code": "BL03",
+    "Name": "土城",
+    "TimeTableId": 78
+  },
+  {
+    "Code": "BL04",
+    "Name": "海山",
+    "TimeTableId": 79
+  },
+  {
+    "Code": "BL05",
+    "Name": "亞東醫院",
+    "TimeTableId": 80
+  },
+  {
+    "Code": "BL06",
+    "Name": "府中",
+    "TimeTableId": 81
+  },
+  {
+    "Code": "BL07",
+    "Name": "板橋",
+    "TimeTableId": 82
+  },
+  {
+    "Code": "BL08",
+    "Name": "新埔",
+    "TimeTableId": 83
+  },
+  {
+    "Code": "BL09",
+    "Name": "江子翠",
+    "TimeTableId": 84
+  },
+  {
+    "Code": "BL10",
+    "Name": "龍山寺",
+    "TimeTableId": 85
+  },
+  {
+    "Code": "BL11",
+    "Name": "西門",
+    "TimeTableId": 86
+  },
+  {
+    "Code": "BL12",
+    "Name": "台北車站",
+    "TimeTableId": 51
+  },
+  {
+    "Code": "BL13",
+    "Name": "善導寺",
+    "TimeTableId": 88
+  },
+  {
+    "Code": "BL14",
+    "Name": "忠孝新生",
+    "TimeTableId": 89
+  },
+  {
+    "Code": "BL15",
+    "Name": "忠孝復興",
+    "TimeTableId": 10
+  },
+  {
+    "Code": "BL16",
+    "Name": "忠孝敦化",
+    "TimeTableId": 91
+  },
+  {
+    "Code": "BL17",
+    "Name": "國父紀念館",
+    "TimeTableId": 92
+  },
+  {
+    "Code": "BL18",
+    "Name": "市政府",
+    "TimeTableId": 93
+  },
+  {
+    "Code": "BL19",
+    "Name": "永春",
+    "TimeTableId": 94
+  },
+  {
+    "Code": "BL20",
+    "Name": "後山埤",
+    "TimeTableId": 95
+  },
+  {
+    "Code": "BL21",
+    "Name": "昆陽",
+    "TimeTableId": 96
+  },
+  {
+    "Code": "BL22",
+    "Name": "南港",
+    "TimeTableId": 97
+  },
+  {
+    "Code": "BL23",
+    "Name": "南港展覽館",
+    "TimeTableId": 31
+  }
+]
