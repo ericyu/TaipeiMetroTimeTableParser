@@ -2,10 +2,6 @@
 import os, sys, json, traceback
 from os.path import join
 from TimeTableParser import TimeTableParser
-from pdfminer.pdfpage import PDFPage
-from pdfminer.pdfinterp import PDFResourceManager, PDFPageInterpreter
-from pdfminer.converter import PDFPageAggregator
-from pdfminer.layout import LAParams
 from multiprocessing import Pool, Value, Lock
 
 # config
@@ -17,8 +13,6 @@ outputCompact = join(outputDir, "Compact")
 outputReadable = join(outputDir, "Readable")
 threads = 4
 
-laparams = LAParams()
-
 counter = None
 
 def ProcessTimeTable(station):
@@ -29,22 +23,15 @@ def ProcessTimeTable(station):
             station['Name'] == '小碧潭' or '小碧潭' in direction['Text']:
             return
         print('Processing {} {}'.format(station['Name'], direction['Text']))
-        fp = open(join(dataDir, direction['File']), 'rb')
-        for page in PDFPage.get_pages(fp, None, maxpages=1):
-            try:
-                rsrcmgr = PDFResourceManager()
-                device = PDFPageAggregator(rsrcmgr, laparams=laparams)
-                interpreter = PDFPageInterpreter(rsrcmgr, device)
-                interpreter.process_page(page)
-                layout = device.get_result()
-                tableParser = TimeTableParser(layout._objs, layout.bbox[3])
-                (effectiveFrom, timetables) = tableParser.Parse()
-                allTimeTables = { 'Direction': direction['Text'], 'EffectiveFrom': effectiveFrom, 'Schedule': timetables }
-                result['Timetables'].append(allTimeTables)
-            except:
-                print("Error at {}".format(direction['File']) )
-                traceback.print_exc(direction=sys.stdout)
-        fp.close()
+        try:
+            tableParser = TimeTableParser(join(dataDir, direction['File']))
+            (effectiveFrom, timetables) = tableParser.Parse()
+            allTimeTables = { 'Direction': direction['Text'], 'EffectiveFrom': effectiveFrom, 'Schedule': timetables }
+            result['Timetables'].append(allTimeTables)
+        except:
+            print("Error at {}".format(direction['File']) )
+            traceback.print_exc(file=sys.stdout)
+           
     with open(join(outputReadable, station['Code'] + '.json'), 'w', encoding='utf-8') as f:
             json.dump(result, f, ensure_ascii=False, sort_keys=True, indent=2)
     with open(join(outputCompact, station['Code'] + '.json'), 'w', encoding='utf-8') as f:

@@ -1,6 +1,15 @@
 # -*- coding: utf8 -*-
-import pdfminer, re, json
+import re, pickle, os.path
 from datetime import datetime
+import pdfminer
+from pdfminer.pdfpage import PDFPage
+from pdfminer.pdfinterp import PDFResourceManager, PDFPageInterpreter
+from pdfminer.converter import PDFPageAggregator
+from pdfminer.layout import LAParams
+
+parseCacheDir = 'parseCache/'
+
+laparams = LAParams()
 
 class TimeTableParser:
     cidMapping = {
@@ -21,12 +30,8 @@ class TimeTableParser:
         '(cid:28235)': '龍'
     }
     
-    def __init__(self, lt_objs, pageHeight):
-        self.objs = lt_objs
-        self.pageHeight = pageHeight
-        self.__allUnderlines = []
-        self.__allRectsInTable = []
-        self.__allChars = []
+    def __init__(self, pdfFileName):
+        self.RawData = { 'underlines': [], 'rectsInTable': [], 'chars': [], 'textlines': [] }
         self.__xRanges = []
         self.__yRanges = []
         self.__underlineDestination = None
@@ -36,9 +41,36 @@ class TimeTableParser:
         self.destinations = None
         self.directionText = None
         self.effectiveFrom = None
+        self.pdfFileName = pdfFileName
 
     def Parse(self):
-        self.__readobj(self.objs)
+        # 先看是否有 cache，以及日期是否夠新
+        if not os.path.exists(parseCacheDir):
+            os.makedirs(parseCacheDir)
+        cacheFile = os.path.join(parseCacheDir, os.path.basename(self.pdfFileName) + '.cache')
+        foundCache = (os.path.isfile(cacheFile) and \
+                      os.path.getsize(cacheFile) > 0 and \
+                      os.path.getmtime(cacheFile) > os.path.getmtime(self.pdfFileName))
+        if (foundCache):
+            fp = open(cacheFile, 'rb')
+            self.RawData = pickle.load(fp)
+            fp.close()
+        else:
+            fp = open(self.pdfFileName, 'rb')
+            for page in PDFPage.get_pages(fp, None, maxpages=1):
+                rsrcmgr = PDFResourceManager()
+                device = PDFPageAggregator(rsrcmgr, laparams=laparams)
+                interpreter = PDFPageInterpreter(rsrcmgr, device)
+                interpreter.process_page(page)
+                layout = device.get_result()
+                self.__readobj(layout._objs)
+                for category in self.RawData.values():
+                    self.__reverseYaxis(category, layout.bbox[3])
+                cacheFp = open(cacheFile, 'wb')
+                pickle.dump(self.RawData, cacheFp)
+                cacheFp.close()
+            fp.close()
+
         self.__calculateBoundary()
         self.__assignCharsAndLinesToCell()
         self.__processCells()
@@ -49,26 +81,24 @@ class TimeTableParser:
             if isinstance(obj, pdfminer.layout.LTTextBox):
                 for line in obj._objs:
                     if isinstance(line, pdfminer.layout.LTTextLine):
+                        self.RawData['textlines'].append(line)
                         for c in line._objs:
                             if isinstance(c, pdfminer.layout.LTChar):
-                                self.__allChars.append(c)
+                                self.RawData['chars'].append(c)
             elif isinstance(obj, pdfminer.layout.LTRect):
                 if 10 < obj.height < 60: # 用時刻表內的四邊形來切分；首先先取得所有特定大小內的四邊形
-                    self.__allRectsInTable.append(obj)
+                    self.RawData['rectsInTable'].append(obj)
                 elif obj.height < 1: # 這些是底線，也先存起來
-                    self.__allUnderlines.append(obj)
+                    self.RawData['underlines'].append(obj)
             elif isinstance(obj, pdfminer.layout.LTFigure):
                 self.__readobj(obj._objs)
-        self.__reverseYaxis(self.__allChars)
-        self.__reverseYaxis(self.__allUnderlines)
-        self.__reverseYaxis(self.__allRectsInTable)
 
-    def __reverseYaxis(self, objs):
+    def __reverseYaxis(self, objs, pageHeight):
         for o in objs:
-            o.bbox = (o.bbox[0], self.pageHeight - o.bbox[1], o.bbox[2], self.pageHeight - o.bbox[3])
+            o.bbox = (o.bbox[0], pageHeight - o.bbox[1], o.bbox[2], pageHeight - o.bbox[3])
 
     def __getFrequentBoundaries(self, pos):
-        newList = list(map(lambda i: i.bbox[pos], self.__allRectsInTable))
+        newList = list(map(lambda i: i.bbox[pos], self.RawData['rectsInTable']))
         # 計算頻率，只取出現超過 1 次的
         d = {x: newList.count(x) for x in set(newList)}
         d = {k: v for k, v in d.items() if v > 1}
@@ -80,7 +110,7 @@ class TimeTableParser:
         # 取得所有方形的左側垂直格線
         verticalBounds = self.__getFrequentBoundaries(0)
         # 接著取得右側格線中的最大值
-        verticalBounds.append(max(list(map(lambda i: i.bbox[2], self.__allRectsInTable))))
+        verticalBounds.append(max(list(map(lambda i: i.bbox[2], self.RawData['rectsInTable']))))
         verticalBounds.sort()
         # 我們得到的數值，可以兩兩組合出「分」的左右邊界 v[1]-v[2], v[3]-v[4], ... （不需要最左側）
         # 計算格子的 X 軸範圍
@@ -105,25 +135,22 @@ class TimeTableParser:
         hoursBoundaries = (verticalBounds[0], verticalBounds[1])
         days = []
         hours = []
-        for obj in self.objs:
-            if isinstance(obj, pdfminer.layout.LTTextBox):
-                for line in obj._objs:
-                    if isinstance(line, pdfminer.layout.LTTextLine):
-                        linetext = line.get_text().strip()
-                        if '週' in linetext:
-                            days.append(line)
-                        elif '底線' in linetext:
-                            matches = re.findall('加註底線.*?[往至](.+?站)', linetext)
-                            self.__underlineDestination = self.__normalizeStationName(matches[0])
-                        elif '站往' in linetext:
-                            matches = re.findall('站往(.+)時刻表', linetext)
-                            self.directionText = self.__normalizeStationName(matches[0])
-                        elif 'Effective' in linetext:
-                            matches = re.findall('Effective from (.+)', linetext)
-                            self.effectiveFrom = datetime.strptime(matches[0].replace('.', ''), '%b %d, %Y').date().isoformat()
-                        elif hoursBoundaries[0] <= line.bbox[0] and line.bbox[2] <= hoursBoundaries[1] and re.match('\d\d$', linetext):
-                            hours.append(line)
-        hours.sort(key=lambda x: (-x.bbox[1]))
+        for line in self.RawData['textlines']:
+            linetext = line.get_text().strip()
+            if '週' in linetext:
+                days.append(line)
+            elif '底線' in linetext:
+                matches = re.findall('加註底線.*?[往至](.+?站)', linetext)
+                self.__underlineDestination = self.__normalizeStationName(matches[0])
+            elif '站往' in linetext:
+                matches = re.findall('站往(.+)時刻表', linetext)
+                self.directionText = self.__normalizeStationName(matches[0])
+            elif 'Effective' in linetext:
+                matches = re.findall('Effective from (.+)', linetext)
+                self.effectiveFrom = datetime.strptime(matches[0].replace('.', ''), '%b %d, %Y').date().isoformat()
+            elif hoursBoundaries[0] <= line.bbox[0] and line.bbox[2] <= hoursBoundaries[1] and re.match('\d\d$', linetext):
+                hours.append(line)
+        hours.sort(key=lambda x: (x.bbox[1]))
         self.hours = list(map(lambda k: k.get_text().strip(), hours))
         days.sort(key=lambda x: x.bbox[0])
         self.days = self.__parseDays(list(map(lambda k: k.get_text().strip(), days)))
@@ -164,9 +191,9 @@ class TimeTableParser:
         # 建立一個二維矩陣，內有 list
         self.matrix = [[[] for x in range(len(self.__yRanges))] for x in range(len(self.__xRanges))]
         # 將各個字元填入
-        for c in self.__allChars:
+        for c in self.RawData['chars']:
             self.__assignObjToMatrix(c)
-        for l in self.__allUnderlines:
+        for l in self.RawData['underlines']:
             self.__assignObjToMatrix(l)
 
     def __processCells(self):
