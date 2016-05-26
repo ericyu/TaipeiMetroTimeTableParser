@@ -241,7 +241,9 @@ class TimeTableParser:
         timeIdx = lineIdx = 0
         result = []
         while timeIdx < timeLen:
-            if lineIdx < lineLen and line[lineIdx].bbox[0] <= time[timeIdx].bbox[0] <= line[lineIdx].bbox[2]:
+            if (lineIdx < lineLen and \
+                    line[lineIdx].bbox[0] <= time[timeIdx].bbox[0] <= line[lineIdx].bbox[2] and\
+                    line[lineIdx].bbox[1] - time[timeIdx].bbox[1] < 0.05):
                 result.append((time[timeIdx].get_text(), 1))
                 timeIdx += 1
                 lineIdx += 1
