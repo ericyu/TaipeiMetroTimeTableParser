@@ -8,9 +8,7 @@ from multiprocessing import Pool, Value, Lock
 outfp = sys.stdout
 codec = 'utf-8'
 dataDir = 'fetchData/'
-outputDir = 'output/'
-outputCompact = join(outputDir, "Compact")
-outputReadable = join(outputDir, "Readable")
+outputDir = 'output/Stations/'
 threads = 4
 
 counter = None
@@ -32,18 +30,12 @@ def ProcessTimeTable(station):
             print("Error at {}".format(direction['File']) )
             traceback.print_exc(file=sys.stdout)
            
-    with open(join(outputReadable, station['Code'] + '.json'), 'w', encoding='utf-8') as f:
+    with open(join(outputDir, station['Code'] + '.json'), 'w', encoding='utf-8') as f:
             json.dump(result, f, ensure_ascii=False, sort_keys=True, indent=2)
-    with open(join(outputCompact, station['Code'] + '.json'), 'w', encoding='utf-8') as f:
-            json.dump(result, f, ensure_ascii=False, sort_keys=True, separators=(',', ':'))
 
 if __name__ == '__main__':
     if not os.path.exists(outputDir):
         os.makedirs(outputDir)
-    if not os.path.exists(outputCompact):
-        os.makedirs(outputCompact)
-    if not os.path.exists(outputReadable):
-        os.makedirs(outputReadable)
 
     with open(join(dataDir, 'StationListWithPdf.json'), 'r', encoding='utf-8') as f:
         inputList = json.load(f)
