@@ -19,7 +19,7 @@ def ProcessTimeTable(station):
     for direction in station['Directions']:
         if station['Name'] == '新北投' or '新北投' in direction['Text'] or \
             station['Name'] == '小碧潭' or '小碧潭' in direction['Text']:
-            return
+            continue
         print('Processing {} {}'.format(station['Name'], direction['Text']))
         try:
             tableParser = TimeTableParser(join(dataDir, direction['File']))
@@ -29,8 +29,9 @@ def ProcessTimeTable(station):
         except:
             print("Error at {}".format(direction['File']) )
             traceback.print_exc(file=sys.stdout)
-           
-    with open(join(outputDir, station['Code'] + '.json'), 'w', encoding='utf-8') as f:
+
+    if len(result['Timetables']) > 0:           
+        with open(join(outputDir, station['Code'] + '.json'), 'w', encoding='utf-8') as f:
             json.dump(result, f, ensure_ascii=False, sort_keys=True, indent=2)
 
 if __name__ == '__main__':
