@@ -4,6 +4,7 @@ from os.path import basename, join, splitext
 from bs4 import BeautifulSoup
 from urllib import request
 from urllib.parse import urljoin, urlparse
+import filecmp
 
 urlBase = 'http://web.metro.taipei/c/timetables.asp?id='
 dataDir = 'fetchData/'
@@ -39,8 +40,18 @@ for item in data:
         newItem['Directions'].append({'Text': link.text, 'File': fileName})
         if downloadPDF:
             pdf = request.urlopen(downloadLink)
-            with open(join(dataDir, fileName), 'b+w') as f:
+            outputName = join(dataDir, fileName)
+            tmpName = "download.tmp"
+            with open(tmpName, 'b+w') as f:
                 f.write(pdf.read())
+            if not os.path.isfile(outputName) or not filecmp.cmp(tmpName, outputName, shallow=False):
+                try:
+                    os.remove(outputName)
+                except OSError:
+                    pass
+                os.rename(tmpName, outputName)
+            else:
+                os.remove(tmpName)
     del newItem['TimeTableId']
     newData.append(newItem)
 
