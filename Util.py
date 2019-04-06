@@ -2,6 +2,7 @@
 import json
 import re
 
+
 def ConvertToMinute(time):
     hour = int(time[:2])
     minute = int(time[-2:])
@@ -9,19 +10,23 @@ def ConvertToMinute(time):
         hour += 24
     return hour * 60 + minute
 
+
 def ConvertToHourMinute(minute):
     hour = minute // 60
-    minute = minute - hour*60
+    minute = minute - hour * 60
     if hour >= 24:
         hour -= 24
     return '{0:02d}:{1:02d}'.format(hour, minute)
+
 
 def ReadJson(file):
     with file.open(encoding='UTF-8') as f:
         return json.load(f)
 
+
 def GetNumber(string):
     return int(re.findall('\d+', string)[0])
+
 
 class StationMapping:
     codeToName = {}

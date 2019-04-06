@@ -11,6 +11,7 @@ parseCacheDir = 'parseCache/'
 
 laparams = LAParams()
 
+
 class TimeTableParser:
     cidMapping = {
         '(cid:13884)': '松',
@@ -86,9 +87,9 @@ class TimeTableParser:
                             if isinstance(c, pdfminer.layout.LTChar):
                                 self.RawData['chars'].append(c)
             elif isinstance(obj, pdfminer.layout.LTRect):
-                if 10 < obj.height < 60: # 用時刻表內的四邊形來切分；首先先取得所有特定大小內的四邊形
+                if 10 < obj.height < 60:  # 用時刻表內的四邊形來切分；首先先取得所有特定大小內的四邊形
                     self.RawData['rectsInTable'].append(obj)
-                elif obj.height < 1: # 這些是底線，也先存起來
+                elif obj.height < 1:  # 這些是底線，也先存起來
                     self.RawData['underlines'].append(obj)
             elif isinstance(obj, pdfminer.layout.LTFigure):
                 self.__readobj(obj._objs)
@@ -216,13 +217,13 @@ class TimeTableParser:
             obj = self.matrix[x][y][i]
             if isinstance(obj, pdfminer.layout.LTRect):
                 tmpLine.append(obj)
-                if i == len(self.matrix[x][y])-1 or isinstance(self.matrix[x][y][i+1], pdfminer.layout.LTChar):
+                if i == len(self.matrix[x][y]) - 1 or isinstance(self.matrix[x][y][i + 1], pdfminer.layout.LTChar):
                     result.extend(self.__tagUnderlined(tmpTime, tmpLine))
                     tmpTime = []
                     tmpLine = []
                 i += 1
-            elif isinstance(obj, pdfminer.layout.LTChar): # Text，跟下一個 Text 合併
-                nextObj = self.matrix[x][y][i+1]
+            elif isinstance(obj, pdfminer.layout.LTChar):  # Text，跟下一個 Text 合併
+                nextObj = self.matrix[x][y][i + 1]
                 obj._text = obj._text + nextObj._text
                 obj.bbox = (obj.bbox[0], obj.bbox[1], nextObj.bbox[2], nextObj.bbox[3])
                 tmpTime.append(obj)
@@ -258,7 +259,7 @@ class TimeTableParser:
         if len(foundDays) == 1:
             return str(foundDays[0])
         if len(foundDays) == 2 and '至' in day:
-            foundDays = ','.join(str(x) for x in list(range(foundDays[0], foundDays[1]+1)))
+            foundDays = ','.join(str(x) for x in list(range(foundDays[0], foundDays[1] + 1)))
         return foundDays
 
     def __parseDays(self, days):
@@ -276,4 +277,4 @@ class TimeTableParser:
         return timetables
     
     def __getCellResult(self, hour, minutes):
-        return list(map(lambda m: { 'Time': '{}:{}'.format(hour, m[0]), 'Dst': self.destinations[m[1]]}, minutes ))
+        return list(map(lambda m: { 'Time': '{}:{}'.format(hour, m[0]), 'Dst': self.destinations[m[1]]}, minutes))

@@ -10,7 +10,6 @@ import Util
 inputDir = 'output/Stations'
 outputDir = 'output/Lines'
 
-
 lineCodes = ['R', 'G', 'O', 'BL'] 
 # 0: 小到大
 directionMapping = {
@@ -34,22 +33,22 @@ directionMapping = {
 }
 
 lastAppend = {
-    'R27': ('R28', 3), # 淡水
-    'R03': ('R02', 2), # 象山
-    'R21': ('R22', 2), # 北投
-    'R06': ('R05', 2), # 大安
+    'R27': ('R28', 3),  # 淡水
+    'R03': ('R02', 2),  # 象山
+    'R21': ('R22', 2),  # 北投
+    'R06': ('R05', 2),  # 大安
 
-    'BL22': ('BL23', 2), # 南港展覽館
-    'BL02': ('BL01', 3), # 頂埔 
-    'BL20': ('BL21', 2), # 昆陽 
-    'BL06': ('BL05', 3), # 亞東醫院
+    'BL22': ('BL23', 2),  # 南港展覽館
+    'BL02': ('BL01', 3),  # 頂埔 
+    'BL20': ('BL21', 2),  # 昆陽 
+    'BL06': ('BL05', 3),  # 亞東醫院
 
-    'G18': ('G19', 3), # 松山 
-    'G02': ('G01', 2), # 新店
-    'G09': ('G08', 2), # 台電大樓
+    'G18': ('G19', 3),  # 松山 
+    'G02': ('G01', 2),  # 新店
+    'G09': ('G08', 2),  # 台電大樓
 
-    'O02': ('O01', 2), # 南勢角
-    'O53': ('O54', 2), # 蘆洲 
+    'O02': ('O01', 2),  # 南勢角
+    'O53': ('O54', 2),  # 蘆洲 
     'O20': ('O21', 3)  # 迴龍 
 }
 
@@ -58,6 +57,7 @@ additionalTimeThreshold = {
 }
 
 SingleTrainStruct = namedtuple('SingleTrainStruct', ['Dst', 'Schedule'])
+
 
 def ChainTimeTables(direction, timetables):
     orderedStationList = sorted(timetables.keys())
@@ -84,19 +84,21 @@ def ChainTimeTables(direction, timetables):
         timetables[code] = newTimetable
     if direction[0] == '南勢角' and direction[1] == 1:
         # 特別處理
-        list1 = [code for code in orderedStationList if code <= 'O21'] # 迴龍
-        list2 = [code for code in orderedStationList if code <= 'O12' or code >= 'O50'] # 蘆洲
+        list1 = [code for code in orderedStationList if code <= 'O21']  # 迴龍
+        list2 = [code for code in orderedStationList if code <= 'O12' or code >= 'O50']  # 蘆洲
         result1 = TraverseTimeTables(list1, timetables, specialHandle=1)
         result2 = TraverseTimeTables(list2, timetables)
         result = result1 + result2
     else:
         result = TraverseTimeTables(orderedStationList, timetables)
     return result
+
     
 def appendLastStation(schedule):
     theLast = schedule[-1]
     (dstStation, additionMins) = lastAppend[theLast['StationCode']]
     schedule.append({'StationCode': dstStation, 'DepTime': Util.ConvertToHourMinute(Util.ConvertToMinute(theLast['DepTime']) + additionMins)})
+
     
 def TraverseTimeTables(orderedStationList, timetables, specialHandle=0):    
     # 從第一個站開始，看第一筆時刻，然後接著每一個站去找
@@ -109,12 +111,12 @@ def TraverseTimeTables(orderedStationList, timetables, specialHandle=0):
                 singleTrain = SingleTrainStruct(Dst=dst, Schedule=[])
                 singleTrain.Schedule.append({'StationCode': stationCode, 'DepTime': Util.ConvertToHourMinute(d)})
                 timeThreshold = d
-                for j in range(idx+1, len(orderedStationList)):
+                for j in range(idx + 1, len(orderedStationList)):
                     currentTimetable = timetables[orderedStationList[j]][dst]
                     if not currentTimetable:
                         continue
                     # 找到下一個時間
-                    timeThreshold += additionalTimeThreshold.get((orderedStationList[j-1], orderedStationList[j]), 0)
+                    timeThreshold += additionalTimeThreshold.get((orderedStationList[j - 1], orderedStationList[j]), 0)
                     foundIdx = bisect(currentTimetable, timeThreshold)
                     foundTime = currentTimetable[foundIdx]
                     singleTrain.Schedule.append({'StationCode': orderedStationList[j], 'DepTime': Util.ConvertToHourMinute(foundTime)})
@@ -125,6 +127,7 @@ def TraverseTimeTables(orderedStationList, timetables, specialHandle=0):
                 result.append({'Dst': singleTrain.Dst, 'Schedule': singleTrain.Schedule})
             del departures[:]
     return result
+
 
 def ProcessLines(lineCode, stationFiles):
     # 讀進所有的時刻表資料
@@ -158,6 +161,7 @@ def ProcessLines(lineCode, stationFiles):
         result.append({'Direction': direction[0], 'EffectiveFrom': effectiveFrom, 'Timetables': directionResult})
     with open(join('output/Lines', lineCode + '.json'), 'w', encoding='utf-8') as f:
         json.dump(result, f, ensure_ascii=False, sort_keys=True, indent=2)
+
 
 if __name__ == '__main__':
     for lineCode in lineCodes:

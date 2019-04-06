@@ -13,6 +13,7 @@ threads = 4
 
 counter = None
 
+
 def ProcessTimeTable(station):
     global counter
     result = { 'StationName': station['Name'], 'StationCode': station['Code'], 'Timetables': [] }
@@ -27,12 +28,13 @@ def ProcessTimeTable(station):
             allTimeTables = { 'Direction': direction['Text'], 'EffectiveFrom': effectiveFrom, 'Schedule': timetables }
             result['Timetables'].append(allTimeTables)
         except:
-            print("Error at {}".format(direction['File']) )
+            print("Error at {}".format(direction['File']))
             traceback.print_exc(file=sys.stdout)
 
     if len(result['Timetables']) > 0:           
         with open(join(outputDir, station['Code'] + '.json'), 'w', encoding='utf-8') as f:
             json.dump(result, f, ensure_ascii=False, sort_keys=True, indent=2)
+
 
 if __name__ == '__main__':
     if not os.path.exists(outputDir):
