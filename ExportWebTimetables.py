@@ -192,6 +192,13 @@ def getLineTimetable(stations, data, direction, daysPattern):
     result += '<div id="timetable-container" class="dia"><table id="timetable"><tbody>'
     rows = [s + '<tr>' for s in rows]
     for train in data:
+        # 加上 ==
+        if train[-1] == '':
+            for i, time in reversed(list(enumerate(train))):
+                if time != '':
+                    train[i+1] = '=='
+                    break
+        
         idx = 0
         for dep in train:
             rows[idx] += '<td>' + dep + '</td>'
