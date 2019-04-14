@@ -8,7 +8,7 @@ import filecmp
 
 urlBase = 'http://web.metro.taipei/c/timetables.asp?id='
 dataDir = 'fetchData/'
-downloadPDF = False
+downloadPDF = True
 
 if not os.path.exists(dataDir):
     os.makedirs(dataDir)
@@ -28,7 +28,7 @@ for item in data:
     print('Fetching {} {}'.format(item['Code'], item['Name']))
     html = request.urlopen(urlBase + str(item['TimeTableId'])).read()
     soup = BeautifulSoup(html, 'html.parser')
-    table = soup.find('table', attrs={'width':'50%'})
+    table = soup.find('table', attrs={'width':'60%'})
     for tr in table.findAll("tr"):
         tds = tr.findAll("td")
         lineNumber = splitext(basename(tds[0].find("img")['src']))[0]

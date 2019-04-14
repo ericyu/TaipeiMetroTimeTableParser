@@ -1,0 +1,55 @@
+html, body { height: 100%; }
+
+* {
+    font-family: Arial, 'Noto Sans', 'Noto Sans CJK TC', '蘋果儷中黑', 'Microsoft JhengHei', '微軟正黑體';
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    margin: 2em;
+}
+
+.routetitle {
+    display: inline-block;
+    margin-left: 8px;
+    position: relative;
+    top: 0;
+    left: 0;
+    font-size: 20px;
+    font-weight: bold;
+    min-width: 100px;
+    color: #3e3e3e;
+    letter-spacing: 0.8px;
+}
+
+.line-timetable-header {
+  font-size: 120%;
+}
+
+.note {
+  font-size: 70%;
+}
+
+#line-timetable-table {
+  white-space: nowrap;
+}
+
+#flex-container {
+  display: flex;
+}
+
+#line-container {
+  display: flex;
+  flex-direction: column;
+}
+
+#map-container {
+  display: flex;
+  width: 100%;
+}
+
+svg {
+  cursor: default;
+}

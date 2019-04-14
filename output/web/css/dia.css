@@ -1,0 +1,171 @@
+body {
+  margin: 10px;
+  font-size: 120%;
+}
+
+#main-header {
+  font-size: 140%;
+}
+
+#effective-from {
+  font-size: 80%;
+}
+
+#back-to-line {
+  font-size: 80%;
+}
+
+.header-wrapper {
+  display: flex;
+  padding-bottom: 10px;
+}
+
+#header-left {
+  padding: 0px;
+  padding-right: 25px;
+}
+
+#header-right {
+  padding: 0px;
+  font-size: 80%;
+}
+
+#outer-timetable-container {
+  display: flex;
+  align-items: flex-start;
+}
+
+#timetable-container {
+  width: calc(100vw - 200px);
+  overflow-x: scroll;
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+#stations {
+  white-space: nowrap;
+}
+
+#outer-timetable-container table {
+  line-height: 1.2;
+}
+
+#stations td {
+  padding: 5px;
+}
+
+#timetable td {
+  text-align: center;
+  padding: 5px;
+}
+
+#timetable td:nth-child(odd) {
+  background-color:rgba(0, 128, 255, 0.1);
+}
+
+#timetable td:nth-child(even) {
+  background-color:rgba(255, 255, 255, 0);
+}
+
+#timetable tr:hover {
+  background-color:rgba(255, 128, 64, 0.15);
+}
+
+#station-timetable-table tr:nth-child(odd) {
+  background-color:rgba(0, 128, 255, 0.1);
+}
+
+#station-timetable-table td:nth-of-type(1) {
+  background-color:rgba(200, 200, 200, 0.5);
+  font-weight: bold;
+  text-align: center;
+  padding: 20px;
+}
+
+#station-timetable-table th:nth-of-type(1) {
+  background-color:rgba(100, 150, 220, 0.5);
+}
+
+#station-timetable-table th {
+  background-color:rgba(100, 150, 220, 0.3);
+  padding: 20px;
+}
+
+.departure {
+  display: inline-block;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+.departure-attr {
+  display: flex;
+}
+
+.dst {
+  display: flex;
+  font-size: 12px;
+  min-width: 14px;
+}
+
+.first-station {
+  font-size: 6px;
+  display: flex;
+  align-items: flex-end;
+}
+
+.station-code {
+  font-weight: bold;
+}
+
+.station-link {
+  text-decoration: none;
+  color: #1b6bcf;
+}
+
+.station-link:visited {
+  color: #1b6bcf;
+}
+
+.station-link:hover {
+  text-decoration: underline;
+}
+
+#note-box {
+  margin: 1em;
+}
+
+.line-header {
+  margin-top: 1.2em;
+  font-size: 120%;
+}
+
+.line-name {
+  color: white;
+  padding: 5px 10px 5px 10px;
+  margin: 5px 5px 5px 5px;
+}
+
+.summary-line-name {
+  color: white;
+  padding-left: 12px;
+  padding-right: 12px;
+  margin-right: 1em;
+}
+
+#station-summary-table {
+  margin: 1em;
+}
+
+#station-summary-table th,
+#station-summary-table td {
+  text-align: center;
+}
+
+#station-summary-table p {
+  margin-top: 0.6em;
+  margin-bottom: 0.6em;
+}
+
+.pure-button-group {
+  padding-bottom: 5px;
+}

@@ -28,6 +28,21 @@ def GetNumber(string):
     return int(re.findall('\d+', string)[0])
 
 
+def GetGAScript(trackingCode):
+    result = '''\
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id={}"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){{dataLayer.push(arguments);}}
+  gtag('js', new Date());
+
+  gtag('config', '{}');
+</script>\
+    '''.format(trackingCode, trackingCode)
+    return result
+
+
 class StationMapping:
     codeToName = {}
     nameToCode = {}
