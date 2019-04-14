@@ -382,7 +382,7 @@ def processLineTimeTable(inputFile):
             for train in timetable['Trains']:
                 dst = train['Dst']
                 isFirst = True
-                for departure in train['Schedule']:
+                for departure in train['Schedule'][:-1]:
                     station = departure['StationCode']
                     depTime = departure['DepTime']
                     key = (station, direction, daysPattern)
