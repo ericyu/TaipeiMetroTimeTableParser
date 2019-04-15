@@ -5,12 +5,13 @@ from pathlib import Path
 from bisect import bisect
 from collections import namedtuple
 import Util
+from Util import ConvertToHourMinute
 
 # configuration
 inputDir = 'output/Stations'
 outputDir = 'output/Lines'
 
-lineCodes = ['R', 'G', 'O', 'BL'] 
+lineCodes = ['R', 'G', 'O', 'BL']
 # 0: 小到大
 directionMapping = {
     '往R22北投站、R28淡水站': ('淡水', 0),
@@ -53,13 +54,27 @@ lastAppend = {
 }
 
 additionalTimeThreshold = {
-    ('O05', 'O04'): 2
+    ('O07', 'O06' ): (1, None),
+    ('O06', 'O05' ): (2, None),
+    ('O05', 'O04' ): (2, None),
+    ('R08', 'R07' ): (2, None),
+    ('BL04','BL05'): (1, None),
+    ('BL09','BL10'): (2, None),
+    ('BL10','BL11'): (1, None),
+    ('BL11','BL12'): (1, None),
+    ('BL18','BL19'): (1, set([371,403,439,499,994,998,1010,1063,1114,1126,1129,1160,1203,1221,1246,1264,1289,1307,1332,1350,1380,1386,1426,1438,1461,
+                              1016,1060,1089, # Friday
+                              1005,1009,1026,1039,1052,1372,1389, # Saturday
+                              1342,1361,1375,1405])), # Sunday
+    ('BL20','BL21'): (1, None),
+    ('BL21','BL22'): (1, None),
+    ('BL14','BL15'): (1, set([1200, 1243, 1286, 1329])),
 }
 
 SingleTrainStruct = namedtuple('SingleTrainStruct', ['Dst', 'Schedule'])
 
 
-def ChainTimeTables(direction, timetables):
+def ChainTimeTables(direction, timetables, day): # day for info only
     orderedStationList = sorted(timetables.keys())
     if direction[1]:
         orderedStationList.reverse()
@@ -86,11 +101,11 @@ def ChainTimeTables(direction, timetables):
         # 特別處理
         list1 = [code for code in orderedStationList if code <= 'O21']  # 迴龍
         list2 = [code for code in orderedStationList if code <= 'O12' or code >= 'O50']  # 蘆洲
-        result1 = TraverseTimeTables(list1, timetables, specialHandle=1)
-        result2 = TraverseTimeTables(list2, timetables)
+        result1 = TraverseTimeTables(list1, timetables, day, specialHandle=1)
+        result2 = TraverseTimeTables(list2, timetables, day)
         result = result1 + result2
     else:
-        result = TraverseTimeTables(orderedStationList, timetables)
+        result = TraverseTimeTables(orderedStationList, timetables, day)
     return result
 
     
@@ -100,7 +115,7 @@ def appendLastStation(schedule):
     schedule.append({'StationCode': dstStation, 'DepTime': Util.ConvertToHourMinute(Util.ConvertToMinute(theLast['DepTime']) + additionMins)})
 
     
-def TraverseTimeTables(orderedStationList, timetables, specialHandle=0):    
+def TraverseTimeTables(orderedStationList, timetables, day, specialHandle=0): # day for info only    
     # 從第一個站開始，看第一筆時刻，然後接著每一個站去找
     result = []
     for idx, stationCode in enumerate(orderedStationList):
@@ -116,8 +131,18 @@ def TraverseTimeTables(orderedStationList, timetables, specialHandle=0):
                     if not currentTimetable:
                         continue
                     # 找到下一個時間
-                    timeThreshold += additionalTimeThreshold.get((orderedStationList[j - 1], orderedStationList[j]), 0)
+                    addTime = additionalTimeThreshold.get((orderedStationList[j - 1], orderedStationList[j]))
+                    if addTime is not None:
+                        if addTime[1] is None:
+                            timeThreshold += addTime[0]
+                        else:
+                            if timeThreshold not in addTime[1]:
+                                timeThreshold += addTime[0]
+
                     foundIdx = bisect(currentTimetable, timeThreshold)
+                    if foundIdx >= len(currentTimetable):
+                        print('Error finding at {}->{} {} {} {} {}'.format(
+                            orderedStationList[j - 1], orderedStationList[j], day, dst, ConvertToHourMinute(d), foundIdx))
                     foundTime = currentTimetable[foundIdx]
                     singleTrain.Schedule.append({'StationCode': orderedStationList[j], 'DepTime': Util.ConvertToHourMinute(foundTime)})
                     timeThreshold = foundTime
@@ -157,7 +182,7 @@ def ProcessLines(lineCode, stationFiles):
         for day in days:
 #            if day != '7':
 #                continue
-            directionResult.append({ 'Days': day, 'Trains': ChainTimeTables(direction, timetables[(direction, day)]) })
+            directionResult.append({ 'Days': day, 'Trains': ChainTimeTables(direction, timetables[(direction, day)], day) })
         result.append({'Direction': direction[0], 'EffectiveFrom': effectiveFrom, 'Timetables': directionResult})
     with open(join('output/Lines', lineCode + '.json'), 'w', encoding='utf-8') as f:
         json.dump(result, f, ensure_ascii=False, sort_keys=True, indent=2)

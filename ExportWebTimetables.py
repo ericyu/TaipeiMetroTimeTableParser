@@ -239,6 +239,18 @@ def printLineFile(allStations, allDaysPatterns, allDirections,
             if index is not None:
                 deps[index] = time
         trains.append(deps)
+        
+    # 檢查時間合理性（每一站的時間都是排序好的）
+    stationCount = len(stations)
+    for i in range(stationCount):
+        checkValues = [ConvertToMinute(t[i]) for t in trains if t[i] != '' and t[i] != '==' and t[i] != '||']
+        sortedValues = sorted(checkValues)
+        for a in range(len(checkValues)):
+            if checkValues[a] != sortedValues[a]:
+                print("Warning at {} {} {} {}".format(
+                    currentDaysPattern, stations[i], ConvertToHourMinute(checkValues[a]), ConvertToHourMinute(sortedValues[a])))
+                break
+    
     f.write(getLineTimetable(stations, trains, currentDirection, currentDaysPattern))
     f.write(getHtmlFileFooter())
 
