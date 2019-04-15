@@ -134,8 +134,10 @@ def getPageHeaderWithSwitchTable(code, codeText, effectiveFrom, allDaysPatterns,
     result += '</div><div id="effective-from">{} 生效</div>'.format(effectiveFrom)
     
     if isStation: # 站別時刻表的話
-        result += '<div id="back-to-line"><a href="../lines/{}-{}-{}.html">回路線時刻表</a></div>'.format(
+        result += '<div id="go-back"><a href="../lines/{}-{}-{}.html">回路線時刻表</a></div>'.format(
             lineCode, DirectionToCode[currentDirection], currentDaysPattern)
+    else:
+        result += '<div id="go-back"><a href="..">回主畫面</a></div>'
     result += '</div>'
     
     result += '<div id="header-right">'
