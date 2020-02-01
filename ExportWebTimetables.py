@@ -6,7 +6,6 @@ from itertools import *
 from Util import *
 from Util import StationMapping
 import codecs
-from _testcapi import pyobject_fastcalldict
 from bdb import effective
 from collections import Counter
  

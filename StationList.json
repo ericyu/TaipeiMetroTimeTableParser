@@ -122,486 +122,556 @@
   {
     "Code": "R02",
     "Name": "象山",
-    "TimeTableId": 99
+    "TimeTableId": "099"
   },
   {
     "Code": "R03",
     "Name": "台北101/世貿",
-    "TimeTableId": 100
+    "TimeTableId": "100"
   },
   {
     "Code": "R04",
     "Name": "信義安和",
-    "TimeTableId": 101
+    "TimeTableId": "101"
   },
   {
     "Code": "R05",
     "Name": "大安",
-    "TimeTableId": 11
+    "TimeTableId": "011"
   },
   {
     "Code": "R06",
     "Name": "大安森林公園",
-    "TimeTableId": 103
+    "TimeTableId": "103"
   },
   {
     "Code": "R07",
     "Name": "東門",
-    "TimeTableId": 134
+    "TimeTableId": "134"
   },
   {
     "Code": "R08",
     "Name": "中正紀念堂",
-    "TimeTableId": 42
+    "TimeTableId": "042"
   },
   {
     "Code": "R09",
     "Name": "台大醫院",
-    "TimeTableId": 50
+    "TimeTableId": "050"
   },
   {
     "Code": "R10",
     "Name": "台北車站",
-    "TimeTableId": 51
+    "TimeTableId": "051"
   },
   {
     "Code": "R11",
     "Name": "中山",
-    "TimeTableId": 53
+    "TimeTableId": "053"
   },
   {
     "Code": "R12",
     "Name": "雙連",
-    "TimeTableId": 54
+    "TimeTableId": "054"
   },
   {
     "Code": "R13",
     "Name": "民權西路",
-    "TimeTableId": 55
+    "TimeTableId": "055"
   },
   {
     "Code": "R14",
     "Name": "圓山",
-    "TimeTableId": 56
+    "TimeTableId": "056"
   },
   {
     "Code": "R15",
     "Name": "劍潭",
-    "TimeTableId": 57
+    "TimeTableId": "057"
   },
   {
     "Code": "R16",
     "Name": "士林",
-    "TimeTableId": 58
+    "TimeTableId": "058"
   },
   {
     "Code": "R17",
     "Name": "芝山",
-    "TimeTableId": 59
+    "TimeTableId": "059"
   },
   {
     "Code": "R18",
     "Name": "明德",
-    "TimeTableId": 60
+    "TimeTableId": "060"
   },
   {
     "Code": "R19",
     "Name": "石牌",
-    "TimeTableId": 61
+    "TimeTableId": "061"
   },
   {
     "Code": "R20",
     "Name": "唭哩岸",
-    "TimeTableId": 62
+    "TimeTableId": "062"
   },
   {
     "Code": "R21",
     "Name": "奇岩",
-    "TimeTableId": 63
+    "TimeTableId": "063"
   },
   {
     "Code": "R22",
     "Name": "北投",
-    "TimeTableId": 64
+    "TimeTableId": "064"
   },
   {
     "Code": "R22A",
     "Name": "新北投",
-    "TimeTableId": 65
+    "TimeTableId": "065"
   },
   {
     "Code": "R23",
     "Name": "復興崗",
-    "TimeTableId": 66
+    "TimeTableId": "066"
   },
   {
     "Code": "R24",
     "Name": "忠義",
-    "TimeTableId": 67
+    "TimeTableId": "067"
   },
   {
     "Code": "R25",
     "Name": "關渡",
-    "TimeTableId": 68
+    "TimeTableId": "068"
   },
   {
     "Code": "R26",
     "Name": "竹圍",
-    "TimeTableId": 69
+    "TimeTableId": "069"
   },
   {
     "Code": "R27",
     "Name": "紅樹林",
-    "TimeTableId": 70
+    "TimeTableId": "070"
   },
   {
     "Code": "R28",
     "Name": "淡水",
-    "TimeTableId": 71
+    "TimeTableId": "071"
   },
   {
     "Code": "G01",
     "Name": "新店",
-    "TimeTableId": 33
+    "TimeTableId": "033"
   },
   {
     "Code": "G02",
     "Name": "新店區公所",
-    "TimeTableId": 34
+    "TimeTableId": "034"
   },
   {
     "Code": "G03",
     "Name": "七張",
-    "TimeTableId": 35
+    "TimeTableId": "035"
   },
   {
     "Code": "G03A",
     "Name": "小碧潭",
-    "TimeTableId": 32
+    "TimeTableId": "032"
   },
   {
     "Code": "G04",
     "Name": "大坪林",
-    "TimeTableId": 36
+    "TimeTableId": "036"
   },
   {
     "Code": "G05",
     "Name": "景美",
-    "TimeTableId": 37
+    "TimeTableId": "037"
   },
   {
     "Code": "G06",
     "Name": "萬隆",
-    "TimeTableId": 38
+    "TimeTableId": "038"
   },
   {
     "Code": "G07",
     "Name": "公館",
-    "TimeTableId": 39
+    "TimeTableId": "039"
   },
   {
     "Code": "G08",
     "Name": "台電大樓",
-    "TimeTableId": 40
+    "TimeTableId": "040"
   },
   {
     "Code": "G09",
     "Name": "古亭",
-    "TimeTableId": 41
+    "TimeTableId": "041"
   },
   {
     "Code": "G10",
     "Name": "中正紀念堂",
-    "TimeTableId": 42
+    "TimeTableId": "042"
   },
   {
     "Code": "G11",
     "Name": "小南門",
-    "TimeTableId": 43
+    "TimeTableId": "043"
   },
   {
     "Code": "G12",
     "Name": "西門",
-    "TimeTableId": 86
+    "TimeTableId": "086"
   },
   {
     "Code": "G13",
     "Name": "北門",
-    "TimeTableId": 105
+    "TimeTableId": "105"
   },
   {
     "Code": "G14",
     "Name": "中山",
-    "TimeTableId": 53
+    "TimeTableId": "053"
   },
   {
     "Code": "G15",
     "Name": "松江南京",
-    "TimeTableId": 132
+    "TimeTableId": "132"
   },
   {
     "Code": "G16",
     "Name": "南京復興",
-    "TimeTableId": 9
+    "TimeTableId": "009"
   },
   {
     "Code": "G17",
     "Name": "台北小巨蛋",
-    "TimeTableId": 109
+    "TimeTableId": "109"
   },
   {
     "Code": "G18",
     "Name": "南京三民",
-    "TimeTableId": 110
+    "TimeTableId": "110"
   },
   {
     "Code": "G19",
     "Name": "松山",
-    "TimeTableId": 111
+    "TimeTableId": "111"
   },
   {
     "Code": "O01",
     "Name": "南勢角",
-    "TimeTableId": 48
+    "TimeTableId": "048"
   },
   {
     "Code": "O02",
     "Name": "景安",
-    "TimeTableId": 47
+    "TimeTableId": "047"
   },
   {
     "Code": "O03",
     "Name": "永安市場",
-    "TimeTableId": 46
+    "TimeTableId": "046"
   },
   {
     "Code": "O04",
     "Name": "頂溪",
-    "TimeTableId": 45
+    "TimeTableId": "045"
   },
   {
     "Code": "O05",
     "Name": "古亭",
-    "TimeTableId": 41
+    "TimeTableId": "041"
   },
   {
     "Code": "O06",
     "Name": "東門",
-    "TimeTableId": 134
+    "TimeTableId": "134"
   },
   {
     "Code": "O07",
     "Name": "忠孝新生",
-    "TimeTableId": 89
+    "TimeTableId": "089"
   },
   {
     "Code": "O08",
     "Name": "松江南京",
-    "TimeTableId": 132
+    "TimeTableId": "132"
   },
   {
     "Code": "O09",
     "Name": "行天宮",
-    "TimeTableId": 131
+    "TimeTableId": "131"
   },
   {
     "Code": "O10",
     "Name": "中山國小",
-    "TimeTableId": 130
+    "TimeTableId": "130"
   },
   {
     "Code": "O11",
     "Name": "民權西路",
-    "TimeTableId": 55
+    "TimeTableId": "055"
   },
   {
     "Code": "O12",
     "Name": "大橋頭",
-    "TimeTableId": 128
+    "TimeTableId": "128"
   },
   {
     "Code": "O13",
     "Name": "台北橋",
-    "TimeTableId": 127
+    "TimeTableId": "127"
   },
   {
     "Code": "O14",
     "Name": "菜寮",
-    "TimeTableId": 126
+    "TimeTableId": "126"
   },
   {
     "Code": "O15",
     "Name": "三重",
-    "TimeTableId": 125
+    "TimeTableId": "125"
   },
   {
     "Code": "O16",
     "Name": "先嗇宮",
-    "TimeTableId": 124
+    "TimeTableId": "124"
   },
   {
     "Code": "O17",
     "Name": "頭前庄",
-    "TimeTableId": 123
+    "TimeTableId": "123"
   },
   {
     "Code": "O18",
     "Name": "新莊",
-    "TimeTableId": 122
+    "TimeTableId": "122"
   },
   {
     "Code": "O19",
     "Name": "輔大",
-    "TimeTableId": 121
+    "TimeTableId": "121"
   },
   {
     "Code": "O20",
     "Name": "丹鳳",
-    "TimeTableId": 180
+    "TimeTableId": "180"
   },
   {
     "Code": "O21",
     "Name": "迴龍",
-    "TimeTableId": 179
+    "TimeTableId": "179"
   },
   {
     "Code": "O50",
     "Name": "三重國小",
-    "TimeTableId": 178
+    "TimeTableId": "178"
   },
   {
     "Code": "O51",
     "Name": "三和國中",
-    "TimeTableId": 177
+    "TimeTableId": "177"
   },
   {
     "Code": "O52",
     "Name": "徐匯中學",
-    "TimeTableId": 176
+    "TimeTableId": "176"
   },
   {
     "Code": "O53",
     "Name": "三民高中",
-    "TimeTableId": 175
+    "TimeTableId": "175"
   },
    {
     "Code": "O54",
     "Name": "蘆洲",
-    "TimeTableId": 174
+    "TimeTableId": "174"
   },
   {
     "Code": "BL01",
     "Name": "頂埔",
-    "TimeTableId": 76
+    "TimeTableId": "076"
   },
   {
     "Code": "BL02",
     "Name": "永寧",
-    "TimeTableId": 77
+    "TimeTableId": "077"
   },
   {
     "Code": "BL03",
     "Name": "土城",
-    "TimeTableId": 78
+    "TimeTableId": "078"
   },
   {
     "Code": "BL04",
     "Name": "海山",
-    "TimeTableId": 79
+    "TimeTableId": "079"
   },
   {
     "Code": "BL05",
     "Name": "亞東醫院",
-    "TimeTableId": 80
+    "TimeTableId": "080"
   },
   {
     "Code": "BL06",
     "Name": "府中",
-    "TimeTableId": 81
+    "TimeTableId": "081"
   },
   {
     "Code": "BL07",
     "Name": "板橋",
-    "TimeTableId": 82
+    "TimeTableId": "082"
   },
   {
     "Code": "BL08",
     "Name": "新埔",
-    "TimeTableId": 83
+    "TimeTableId": "083"
   },
   {
     "Code": "BL09",
     "Name": "江子翠",
-    "TimeTableId": 84
+    "TimeTableId": "084"
   },
   {
     "Code": "BL10",
     "Name": "龍山寺",
-    "TimeTableId": 85
+    "TimeTableId": "085"
   },
   {
     "Code": "BL11",
     "Name": "西門",
-    "TimeTableId": 86
+    "TimeTableId": "086"
   },
   {
     "Code": "BL12",
     "Name": "台北車站",
-    "TimeTableId": 51
+    "TimeTableId": "051"
   },
   {
     "Code": "BL13",
     "Name": "善導寺",
-    "TimeTableId": 88
+    "TimeTableId": "088"
   },
   {
     "Code": "BL14",
     "Name": "忠孝新生",
-    "TimeTableId": 89
+    "TimeTableId": "089"
   },
   {
     "Code": "BL15",
     "Name": "忠孝復興",
-    "TimeTableId": 10
+    "TimeTableId": "010"
   },
   {
     "Code": "BL16",
     "Name": "忠孝敦化",
-    "TimeTableId": 91
+    "TimeTableId": "091"
   },
   {
     "Code": "BL17",
     "Name": "國父紀念館",
-    "TimeTableId": 92
+    "TimeTableId": "092"
   },
   {
     "Code": "BL18",
     "Name": "市政府",
-    "TimeTableId": 93
+    "TimeTableId": "093"
   },
   {
     "Code": "BL19",
     "Name": "永春",
-    "TimeTableId": 94
+    "TimeTableId": "094"
   },
   {
     "Code": "BL20",
     "Name": "後山埤",
-    "TimeTableId": 95
+    "TimeTableId": "095"
   },
   {
     "Code": "BL21",
     "Name": "昆陽",
-    "TimeTableId": 96
+    "TimeTableId": "096"
   },
   {
     "Code": "BL22",
     "Name": "南港",
-    "TimeTableId": 97
+    "TimeTableId": "097"
   },
   {
     "Code": "BL23",
     "Name": "南港展覽館",
-    "TimeTableId": 31
+    "TimeTableId": "031"
+  },
+  {
+    "Code": "Y07",
+    "Name": "大坪林",
+    "TimeTableId": 0
+  },
+  {
+    "Code": "Y08",
+    "Name": "十四張",
+    "TimeTableId": 0
+  },
+  {
+    "Code": "Y09",
+    "Name": "秀朗橋",
+    "TimeTableId": 0
+  },
+  {
+    "Code": "Y10",
+    "Name": "景平",
+    "TimeTableId": 0
+  },
+  {
+    "Code": "Y11",
+    "Name": "景安",
+    "TimeTableId": 0
+  },
+  {
+    "Code": "Y12",
+    "Name": "中和",
+    "TimeTableId": 0
+  },
+  {
+    "Code": "Y13",
+    "Name": "橋和",
+    "TimeTableId": 0
+  },
+  {
+    "Code": "Y14",
+    "Name": "中原",
+    "TimeTableId": 0
+  },
+  {
+    "Code": "Y15",
+    "Name": "板新",
+    "TimeTableId": 0
+  },
+  {
+    "Code": "Y16",
+    "Name": "板橋",
+    "TimeTableId": 0
+  },
+  {
+    "Code": "Y17",
+    "Name": "新埔民生",
+    "TimeTableId": 0
+  },
+  {
+    "Code": "Y18",
+    "Name": "頭前庄",
+    "TimeTableId": 0
+  },
+  {
+    "Code": "Y19",
+    "Name": "幸福",
+    "TimeTableId": 0
+  },
+  {
+    "Code": "Y20",
+    "Name": "新北產業園區",
+    "TimeTableId": 0
   }
 ]

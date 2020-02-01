@@ -5,8 +5,10 @@ from bs4 import BeautifulSoup
 from urllib import request
 from urllib.parse import urljoin, urlparse
 import filecmp
+import requests
 
-urlBase = 'http://web.metro.taipei/c/timetables.asp?id='
+urlBase = 'https://web.metro.taipei/img/ALL/timetables/'
+apiUrl = 'https://web.metro.taipei/apis/metrostationapi/timetableinfo'
 dataDir = 'fetchData/'
 downloadPDF = True
 
@@ -26,18 +28,17 @@ for item in data:
     newItem['Directions'] = []
     lineCode = re.sub(r'\d.+', '', item['Code'])
     print('Fetching {} {}'.format(item['Code'], item['Name']))
-    html = request.urlopen(urlBase + str(item['TimeTableId'])).read()
-    soup = BeautifulSoup(html, 'html.parser')
-    table = soup.find('table', attrs={'width':'60%'})
-    for tr in table.findAll("tr"):
-        tds = tr.findAll("td")
-        lineNumber = splitext(basename(tds[0].find("img")['src']))[0]
+    r = requests.post(apiUrl, json={"SID": item['TimeTableId'], "Lang": "tw"})
+    retJson = r.json()
+    
+    for record in retJson:
+        lineNumber = record['LineID']
         if lineNumberCodeMapping[lineNumber] != lineCode:
             continue
-        link = tds[1].find("a")
-        downloadLink = (urljoin(urlBase, link['href']))
+        downloadLink = (urljoin(urlBase, record['FileName']))
         fileName = basename(urlparse(downloadLink).path)
-        newItem['Directions'].append({'Text': link.text, 'File': fileName})
+
+        newItem['Directions'].append({'Text': record['Direction'], 'File': fileName})
         if downloadPDF:
             pdf = request.urlopen(downloadLink)
             outputName = join(dataDir, fileName)
