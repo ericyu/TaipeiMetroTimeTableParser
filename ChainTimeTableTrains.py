@@ -168,8 +168,8 @@ def ProcessLines(lineCode, stationFiles):
                 timetables[key][station['StationCode']] = schedule['Departures']
     directions = sorted(set([x[0] for x in timetables.keys()]))
     days = sorted(set([x[1] for x in timetables.keys()]))
-    assert(len(effectiveFromSet) == 1)
-    effectiveFrom = effectiveFromSet.pop()
+    assert(len(effectiveFromSet) > 0)
+    effectiveFrom = sorted(effectiveFromSet)[-1]
 
     # 現在得到的是依照方向及日期區分的時刻表 timetables
     result = []
