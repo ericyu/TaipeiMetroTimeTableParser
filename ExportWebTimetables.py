@@ -274,7 +274,7 @@ def getStationTimetable(data):
     firstMarkUsed = False
 
     result = '<div><table id="station-timetable-table"><tbody><tr><th>時</th><th>分</th></tr>'
-    for hour in byHourData.keys():
+    for hour in sorted(byHourData.keys()):
         minData = sorted(byHourData[hour], key=lambda k: k['Min'])
         if hour >= 24:
             hour -= 24
