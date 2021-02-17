@@ -5,6 +5,10 @@ __pycache__/
 *$py.class
 
 fetchData/
-output/
+output/Lines
+output/Stations
+output/web/lines
+output/web/stations
+output/web/stationPage
 /parseCache
 Pipfile.lock

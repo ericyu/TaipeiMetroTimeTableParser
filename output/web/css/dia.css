@@ -67,7 +67,7 @@ body {
   background-color:rgba(255, 255, 255, 0);
 }
 
-#timetable tr:hover {
+#timetable tr:hover, #stations tr:hover, .hoverRow {
   background-color:rgba(255, 128, 64, 0.15);
 }
 
