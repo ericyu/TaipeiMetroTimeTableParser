@@ -204,7 +204,7 @@ class TimeTableParser:
 
     def __processCell(self, x, y):
         # 按照 Y 座標排序再按 X 座標排序
-        self.matrix[x][y].sort(key=lambda x: (x.bbox[1], x.bbox[0]))
+        self.matrix[x][y].sort(key=lambda x: (x.bbox[3], x.bbox[0]))
         # 在這階段我們會有一個列表裡面像這樣：
         # Text, Text, Text, Text, ... Line, Line, Text, Text
         # Line 就是附著在他之前的某段文字的
