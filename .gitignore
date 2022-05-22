@@ -3,6 +3,7 @@
 __pycache__/
 *.py[cod]
 *$py.class
+.vs
 
 fetchData/
 output/Lines
@@ -11,4 +12,3 @@ output/web/lines
 output/web/stations
 output/web/stationPage
 /parseCache
-Pipfile.lock
