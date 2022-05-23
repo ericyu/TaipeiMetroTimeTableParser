@@ -18,16 +18,16 @@ directionMapping = {
     '往R28淡水站': ('淡水', 0),
     '往R05大安站、R02象山站': ('象山', 1),
     '往R02象山站': ('象山', 1),
-    
+
     '往G19松山站': ('松山', 0),
     '往G08台電大樓站、G01新店站': ('新店', 1),
     '往G01新店站': ('新店', 1),
-    
+
     '往O54蘆洲站': ('蘆洲、迴龍', 0),
     '往O54蘆洲站、O21迴龍站': ('蘆洲、迴龍', 0),
     '往O21迴龍站': ('蘆洲、迴龍', 0),
     '往O01南勢角站': ('南勢角', 1),
-    
+
     '往BL23南港展覽館站': ('南港展覽館', 0),
     '往BL05亞東醫院站、BL01頂埔站': ('頂埔', 1),
     '往BL01頂埔站': ('頂埔', 1)
@@ -40,17 +40,17 @@ lastAppend = {
     'R06': ('R05', 2),  # 大安
 
     'BL22': ('BL23', 2),  # 南港展覽館
-    'BL02': ('BL01', 3),  # 頂埔 
-    'BL20': ('BL21', 2),  # 昆陽 
+    'BL02': ('BL01', 3),  # 頂埔
+    'BL20': ('BL21', 2),  # 昆陽
     'BL06': ('BL05', 3),  # 亞東醫院
 
-    'G18': ('G19', 3),  # 松山 
+    'G18': ('G19', 3),  # 松山
     'G02': ('G01', 2),  # 新店
     'G09': ('G08', 2),  # 台電大樓
 
     'O02': ('O01', 2),  # 南勢角
-    'O53': ('O54', 2),  # 蘆洲 
-    'O20': ('O21', 3)  # 迴龍 
+    'O53': ('O54', 2),  # 蘆洲
+    'O20': ('O21', 3)  # 迴龍
 }
 
 additionalTimeThreshold = {
@@ -104,14 +104,14 @@ def ChainTimeTables(direction, timetables, day): # day for info only
         result = TraverseTimeTables(orderedStationList, timetables, day)
     return result
 
-    
+
 def appendLastStation(schedule):
     theLast = schedule[-1]
     (dstStation, additionMins) = lastAppend[theLast['StationCode']]
     schedule.append({'StationCode': dstStation, 'DepTime': Util.ConvertToHourMinute(Util.ConvertToMinute(theLast['DepTime']) + additionMins)})
 
-    
-def TraverseTimeTables(orderedStationList, timetables, day, specialHandle=0): # day for info only    
+
+def TraverseTimeTables(orderedStationList, timetables, day, specialHandle=0): # day for info only
     # 從第一個站開始，看第一筆時刻，然後接著每一個站去找
     result = []
     for idx, stationCode in enumerate(orderedStationList):

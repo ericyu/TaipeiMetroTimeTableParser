@@ -30,7 +30,7 @@ class TimeTableParser:
         '(cid:24242)': '迴',
         '(cid:28235)': '龍'
     }
-    
+
     def __init__(self, pdfFileName):
         self.RawData = { 'underlines': [], 'rectsInTable': [], 'chars': [], 'textlines': [] }
         self.__xRanges = []
@@ -156,7 +156,7 @@ class TimeTableParser:
         days.sort(key=lambda x: x.bbox[0])
         self.days = self.__parseDays(list(map(lambda k: k.get_text().strip(), days)))
         self.__parseDestination()
-        
+
     def __parseDestination(self):
         self.destinations = list(map(self.__normalizeStationName, self.directionText.split('、')))
         if len(self.destinations) == 1:
@@ -275,6 +275,6 @@ class TimeTableParser:
             timetable = { 'Days': self.days[x], 'Departures': departures }
             timetables.append(timetable)
         return timetables
-    
+
     def __getCellResult(self, hour, minutes):
         return list(map(lambda m: { 'Time': '{}:{}'.format(hour, m[0]), 'Dst': self.destinations[m[1]]}, minutes))

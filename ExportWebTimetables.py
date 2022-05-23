@@ -8,11 +8,11 @@ from Util import StationMapping
 import codecs
 from bdb import effective
 from collections import Counter
- 
+
 lineTimetablesDir = 'output/Lines'
 outputDir = 'output/web'
 stationMapping = StationMapping('StationList.json')
-GATrackingCode = '[TRACKING_CODE]' 
+GATrackingCode = '[TRACKING_CODE]'
 
 sortKeyStations = {
      '象山': 'R06',  # 大安森林公園
@@ -63,7 +63,7 @@ BaseToOtherStationTime = {
         'BL22': 4  # 南港
     },
     'BL06': {
-        'BL02': 9,  # 永寧 
+        'BL02': 9,  # 永寧
         'BL05': 2  # 亞東醫院
     }
 }
@@ -131,21 +131,21 @@ def getPageHeaderWithSwitchTable(code, codeText, effectiveFrom, allDaysPatterns,
         result += '<span class="route-box route-box-larger {}">{}</span> {} 時刻表'.format(lineCode.lower(), code, codeText)
     else:
         result += '<span class="route-box {}">{}</span> {}時刻表'.format(code.lower(), code, codeText)
-    
+
     result += '</div><div id="effective-from">{} 生效</div>'.format(effectiveFrom)
-    
+
     if isStation: # 站別時刻表的話
         result += '<div id="go-back"><a href="../lines/{}-{}-{}.html">回路線時刻表</a></div>'.format(
             lineCode, DirectionToCode[currentDirection], currentDaysPattern)
     else:
         result += '<div id="go-back"><a href="..">回主畫面</a></div>'
     result += '</div>'
-    
+
     result += '<div id="header-right">'
     result += getSwitchPatternDirectionTable(code, allDaysPatterns, allDirections, currentDaysPattern, currentDirection)
     result += '</div></div>'
     return result
-    
+
 
 def getSwitchPatternDirectionTable(code, allDaysPatterns, allDirections, currentDaysPattern, currentDirection):
     result = '<div class="pure-button-group" role="group">'
@@ -155,9 +155,9 @@ def getSwitchPatternDirectionTable(code, allDaysPatterns, allDirections, current
         else:
             result += '<a class="pure-button" href="{}-{}-{}.html">{}</a>\n'.format(
                 code, DirectionToCode[currentDirection], pattern, PatternToText[pattern])
-        
+
     result += '</div><div class="pure-button-group" role="group">'
-    
+
     for direction in allDirections:
         if re.search(r'\d', code) and stationMapping.CodeToName(code) == direction:
             continue
@@ -166,10 +166,10 @@ def getSwitchPatternDirectionTable(code, allDaysPatterns, allDirections, current
         else:
             result += '<a class="pure-button" href="{}-{}-{}.html">{}方向</a>\n'.format(
                 code, DirectionToCode[direction], currentDaysPattern, direction)
-    
+
     result += "</div>"
     return result
-    
+
 
 def getLineTimetable(stations, data, direction, daysPattern):
     result = '<div id="outer-timetable-container"><div id="station-container"><table id="stations"><tbody>'
@@ -191,7 +191,7 @@ def getLineTimetable(stations, data, direction, daysPattern):
         result += '</td></tr>\n'
         idx += 1
     result += '</tbody></table></div>\n'
-    
+
     result += '<div id="timetable-container" class="dia"><table id="timetable"><tbody>'
     rows = [s + '<tr>' for s in rows]
     for train in data:
@@ -201,7 +201,7 @@ def getLineTimetable(stations, data, direction, daysPattern):
                 if time != '':
                     train[i+1] = '=='
                     break
-        
+
         idx = 0
         for dep in train:
             rows[idx] += '<td>' + dep + '</td>'
@@ -217,18 +217,18 @@ def printLineFile(allStations, allDaysPatterns, allDirections,
     stations = list(allStations)
     stations.sort(reverse=sortReversed)
     stationLookup = {val: idx for (idx, val) in enumerate(stations)}
-    
+
     fileName = '{}/lines/{}-{}-{}.html'.format(
         outputDir, lineCode, DirectionToCode[currentSortDirection], currentDaysPattern)
 
     trains = []
     f = codecs.open(fileName, "w", "utf-8-sig")
-    
+
     # Print header
     f.write(getHtmlFileHeader(lineCodeToName[lineCode] + '時刻表'))
 
     f.write(getPageHeaderWithSwitchTable(lineCode, lineCodeToName[lineCode], effectiveFrom, allDaysPatterns, allDirections, currentDaysPattern, currentDirection))
-    
+
     for train in data:
         toLuzhou = any(map(lambda x: x[0] == 'O50', train))
         if toLuzhou:
@@ -240,7 +240,7 @@ def printLineFile(allStations, allDaysPatterns, allDirections,
             if index is not None:
                 deps[index] = time
         trains.append(deps)
-        
+
     # 檢查時間合理性（每一站的時間都是排序好的）
     stationCount = len(stations)
     for i in range(stationCount):
@@ -251,7 +251,7 @@ def printLineFile(allStations, allDaysPatterns, allDirections,
                 print("Warning at {} {} {} {}".format(
                     currentDaysPattern, stations[i], ConvertToHourMinute(checkValues[a]), ConvertToHourMinute(sortedValues[a])))
                 break
-    
+
     f.write(getLineTimetable(stations, trains, currentDirection, currentDaysPattern))
     f.write(getHtmlFileFooter())
 
@@ -272,7 +272,7 @@ def getStationTimetable(data):
     dstStat = Counter(dstList)
     dstByCount = sorted(dstStat, key=dstStat.get, reverse=True)
     assert(len(dstByCount) <= 2)
-    
+
     firstMarkUsed = False
 
     result = '<div><table id="station-timetable-table"><tbody><tr><th>時</th><th>分</th></tr>'
@@ -294,7 +294,7 @@ def getStationTimetable(data):
             result += '</div><div class="minute">{:02d}</div></div>'.format(minRec['Min'])
         result += '</td></tr>'
     result += '</tbody></table></div>'
-    
+
     if len(dstByCount) > 1 or firstMarkUsed:
         result += '<div id="note-box"><div id="note-header">備註</div><ol>'
         if len(dstByCount) > 1:
@@ -303,29 +303,29 @@ def getStationTimetable(data):
         if firstMarkUsed:
             result += '<li>● 表示本站為該列車首站</li>'
         result += '</ol></div>'
-    
+
     return result
 
-    
+
 def printStationFile(allDaysPatterns, allDirections, lineCode, stationCode, currentDirection, currentDaysPattern, timetableData, effectiveFrom):
     fileName = '{}/stations/{}-{}-{}.html'.format(outputDir, stationCode, DirectionToCode[currentDirection], currentDaysPattern)
     f = codecs.open(fileName, "w", "utf-8-sig")
-    
+
     # Print header
     f.write(getHtmlFileHeader('{} {}時刻表'.format(stationCode, stationMapping.CodeToName(stationCode))))
     f.write(getPageHeaderWithSwitchTable(stationCode, stationMapping.CodeToName(stationCode),
                           effectiveFrom, allDaysPatterns, allDirections,
                           currentDaysPattern, currentDirection))
-    
+
     f.write(getStationTimetable(timetableData))
-    
+
     f.write(getHtmlFileFooter())
 
 
 def printStationSummaryPage(stationName, data):
     fileName = '{}/stationPage/{}.html'.format(outputDir, stationName.replace('/', ''))
     f = codecs.open(fileName, "w", "utf-8-sig")
-    
+
     # Print header
     f.write(getHtmlFileHeader('{} 時刻表'.format(stationName)))
     f.write('<div class="header-wrapper"><div id="main-header">{} 時刻表</div></div>'.format(stationName))
@@ -338,7 +338,7 @@ def printStationSummaryPage(stationName, data):
         if key not in byLine.keys():
             byLine[key] = list()
         byLine[key].append((rec['Direction'], rec['DaysPattern']))
-        
+
     for (lineCode, stationCode), value in byLine.items():
         f.write('<div class="line-header"><span class="route-box summary-line-name {}">{}</span> <span class="route-box route-box-larger {}">{}</span></div>'.format(
             lineCode.lower(), lineCodeToName[lineCode], lineCode.lower(), stationCode))
@@ -352,13 +352,13 @@ def printStationSummaryPage(stationName, data):
             directions = sorted(list(set([x[0] for x in value])), key=lambda k: DirectionToCode[k])
             for direction in directions:
                 f.write('<p><a href="../stations/{}-{}-{}.html">{}方向</a></p>'.format(
-                    stationCode, DirectionToCode[direction], pattern, direction)) 
+                    stationCode, DirectionToCode[direction], pattern, direction))
             f.write('</td>');
         f.write('</tr>');
         f.write('</tbody></table>')
-    
+
     f.write(getHtmlFileFooter())
-    
+
 
 def processLineTimeTable(inputFile):
     global currentSortDirection
@@ -374,10 +374,10 @@ def processLineTimeTable(inputFile):
             allDaysPatterns.add(timetable['Days'])
             for train in timetable['Trains']:
                 allStations.update(map(lambda k: k['StationCode'], train['Schedule']))
-    
+
     allDirections = sorted(allDirections, key=lambda k: DirectionToCode[k])
     allDaysPatterns = sorted(allDaysPatterns)
-    
+
     # 處理路線時刻表
     for direction in data:
         effective = direction['EffectiveFrom']
@@ -386,7 +386,7 @@ def processLineTimeTable(inputFile):
             tableData = []
             for train in timetable['Trains']:
                 tableData.append(list(map(lambda k: (k['StationCode'], k['DepTime']), train['Schedule'])))
-            currentSortDirection = direction['Direction'] 
+            currentSortDirection = direction['Direction']
             tableData.sort(key=getTrainSortKey)
             printLineFile(allStations, allDaysPatterns, allDirections,
                           lineCode, timetable['Days'], currentSortDirection, tableData, effective)
@@ -396,7 +396,7 @@ def processLineTimeTable(inputFile):
     # 分配資料到各個資料去： stationData[(station, direction, pattern)] = [ {time, attributes}, ... ]
     # 各車站頁面則用 summaryByStation[stationName] = [ {lineCode, direction, daysPattern}, ... ]
     stationData = {}
-    
+
     for directionTimeTable in data:
         direction = directionTimeTable['Direction']
         for timetable in (directionTimeTable['Timetables']):
@@ -412,7 +412,7 @@ def processLineTimeTable(inputFile):
                         stationData[key] = list()
                     stationData[key].append({'DepTime': ConvertToMinute(depTime), 'Dst': dst, 'First': isFirst})
                     isFirst = False
-                    
+
     for key in stationData.keys():
         if stationMapping.CodeToName(key[0]) == key[1]:
             continue

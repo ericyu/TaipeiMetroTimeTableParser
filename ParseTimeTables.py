@@ -31,7 +31,7 @@ def ProcessTimeTable(station):
             print("Error at {}".format(direction['File']))
             traceback.print_exc(file=sys.stdout)
 
-    if len(result['Timetables']) > 0:           
+    if len(result['Timetables']) > 0:
         with open(join(outputDir, station['Code'] + '.json'), 'w', encoding='utf-8') as f:
             json.dump(result, f, ensure_ascii=False, sort_keys=True, indent=2)
 

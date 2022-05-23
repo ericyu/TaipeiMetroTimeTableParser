@@ -30,7 +30,7 @@ for item in data:
     print('Fetching {} {}'.format(item['Code'], item['Name']))
     r = requests.post(apiUrl, json={"SID": item['TimeTableId'], "Lang": "tw"})
     retJson = r.json()
-    
+
     for record in retJson:
         lineNumber = record['LineID']
         if lineNumberCodeMapping[lineNumber] != lineCode:
