@@ -1,5 +1,6 @@
 # -*- coding: utf8 -*-
 import json
+import io
 from os.path import join
 from pathlib import Path
 from bisect import bisect
@@ -53,15 +54,18 @@ lastAppend = {
     'O20': ('O21', 3)  # 迴龍
 }
 
+# Add additional minutes, but some exceptions
 additionalTimeThreshold = {
     ('O07', 'O06' ): (1, None),
     ('O06', 'O05' ): (2, None),
     ('O05', 'O04' ): (2, None),
     ('R08', 'R07' ): (2, None),
-    ('BL04','BL05'): (1, set([483])),
+    ('R15', 'R14' ): (1, None),
+    ('BL04','BL05'): (1, None),
     ('BL09','BL10'): (2, None),
     ('BL10','BL11'): (1, None),
     ('BL11','BL12'): (1, None),
+    ('BL13','BL14'): (1, set([460, 471, 1139, 1158, 1167])),
     ('BL20','BL21'): (1, None),
     ('BL21','BL22'): (1, None),
     ('BL14','BL15'): (1, set([1200, 1243, 1286, 1329])),
@@ -137,8 +141,8 @@ def TraverseTimeTables(orderedStationList, timetables, day, specialHandle=0): # 
 
                     foundIdx = bisect(currentTimetable, timeThreshold)
                     if foundIdx >= len(currentTimetable):
-                        print('Error finding at {}->{} {} {} {} {}'.format(
-                            orderedStationList[j - 1], orderedStationList[j], day, dst, ConvertToHourMinute(d), foundIdx))
+                        print('Error finding at {} ({}) {}->{} (threshold={}) {} {} {}'.format(
+                            stationCode, ConvertToHourMinute(d), orderedStationList[j - 1], orderedStationList[j], ConvertToHourMinute(timeThreshold), day, dst, foundIdx))
                     foundTime = currentTimetable[foundIdx]
                     singleTrain.Schedule.append({'StationCode': orderedStationList[j], 'DepTime': Util.ConvertToHourMinute(foundTime)})
                     timeThreshold = foundTime
@@ -176,11 +180,9 @@ def ProcessLines(lineCode, stationFiles):
     for direction in directions:
         directionResult = []
         for day in days:
-#            if day != '7':
-#                continue
             directionResult.append({ 'Days': day, 'Trains': ChainTimeTables(direction, timetables[(direction, day)], day) })
         result.append({'Direction': direction[0], 'EffectiveFrom': effectiveFrom, 'Timetables': directionResult})
-    with open(join('output/Lines', lineCode + '.json'), 'w', encoding='utf-8') as f:
+    with io.open(join('output/Lines', lineCode + '.json'), 'w', encoding='utf8') as f:
         json.dump(result, f, ensure_ascii=False, sort_keys=True, indent=2)
 
 

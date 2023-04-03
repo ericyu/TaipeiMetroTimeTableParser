@@ -1,11 +1,11 @@
 # -*- coding: utf8 -*-
 import json
+import io
 from os.path import join, basename, splitext
 from pathlib import Path
 from itertools import *
 from Util import *
 from Util import StationMapping
-import codecs
 from bdb import effective
 from collections import Counter
 
@@ -222,7 +222,7 @@ def printLineFile(allStations, allDaysPatterns, allDirections,
         outputDir, lineCode, DirectionToCode[currentSortDirection], currentDaysPattern)
 
     trains = []
-    f = codecs.open(fileName, "w", "utf-8-sig")
+    f = io.open(fileName, "w", encoding="utf8")
 
     # Print header
     f.write(getHtmlFileHeader(lineCodeToName[lineCode] + '時刻表'))

@@ -1,5 +1,5 @@
 # -*- coding: utf8 -*-
-import os, sys, json, traceback
+import os, sys, io, json, traceback
 from os.path import join
 from TimeTableParser import TimeTableParser
 from multiprocessing import Pool, Value, Lock
@@ -32,7 +32,7 @@ def ProcessTimeTable(station):
             traceback.print_exc(file=sys.stdout)
 
     if len(result['Timetables']) > 0:
-        with open(join(outputDir, station['Code'] + '.json'), 'w', encoding='utf-8') as f:
+        with io.open(join(outputDir, station['Code'] + '.json'), 'w', encoding='utf8') as f:
             json.dump(result, f, ensure_ascii=False, sort_keys=True, indent=2)
 
 
