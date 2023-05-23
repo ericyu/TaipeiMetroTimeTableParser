@@ -5,7 +5,7 @@ idna==3.3
 pdfminer==20191125
 pip==22.0.4
 pycryptodome==3.14.1
-requests==2.27.1
+requests==2.31.0
 setuptools==65.5.1
 soupsieve==2.3.2.post1
 urllib3==1.26.9
