@@ -1,4 +1,5 @@
 # -*- coding: utf8 -*-
+import codecs
 import json
 import io
 from os.path import join, basename, splitext
