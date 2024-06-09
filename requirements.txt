@@ -1,7 +1,7 @@
 beautifulsoup4==4.11.1
 certifi==2023.7.22
 charset-normalizer==2.0.12
-idna==3.3
+idna==3.7
 pdfminer==20191125
 pip==23.3
 pycryptodome==3.19.1
