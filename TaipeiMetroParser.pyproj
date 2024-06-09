@@ -26,9 +26,7 @@
   <ItemGroup>
     <Compile Include="ChainTimeTableTrains.py" />
     <Compile Include="ExportWebTimetables.py" />
-    <Compile Include="FetchTimeTables.py" />
     <Compile Include="ParseTimeTables.py" />
-    <Compile Include="TimeTableParser.py" />
     <Compile Include="Util.py" />
   </ItemGroup>
   <ItemGroup>
