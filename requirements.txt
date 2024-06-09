@@ -4,7 +4,7 @@ charset-normalizer==2.0.12
 idna==3.3
 pdfminer==20191125
 pip==23.3
-pycryptodome==3.14.1
+pycryptodome==3.19.1
 requests==2.31.0
 setuptools==65.5.1
 soupsieve==2.3.2.post1
