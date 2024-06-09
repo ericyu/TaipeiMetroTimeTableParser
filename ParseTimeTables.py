@@ -1,9 +1,11 @@
 # -*- coding: utf8 -*-
-import os, sys, io, json, traceback
+import os
+import sys
+import io
+import json
 from datetime import datetime
 from os.path import join
-from multiprocessing import Pool, Value, Lock
-from Util import ConvertToHourMinute, ConvertToMinute
+from Util import ConvertToMinute
 
 # config
 outfp = sys.stdout
@@ -35,7 +37,6 @@ def ProcessTimeTable(station_id, all_data):
     effectiveFrom = datetime.fromisoformat(list(effectiveFrom)[0]).strftime("%Y-%m-%d")
 
     all_timetables = []
-    directions = [0, 1]
     line_id = station_data[0]["LineID"]
     for direction in [0, 1]:
         schedules = []

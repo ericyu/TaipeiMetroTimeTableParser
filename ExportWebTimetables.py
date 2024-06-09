@@ -1,13 +1,10 @@
 # -*- coding: utf8 -*-
 import codecs
-import json
 import io
-from os.path import join, basename, splitext
 from pathlib import Path
 from itertools import *
 from Util import *
 from Util import StationMapping
-from bdb import effective
 from collections import Counter
 
 lineTimetablesDir = "output/Lines"
@@ -426,7 +423,6 @@ def printStationSummaryPage(stationName, data):
 
     # group by lines
     byLine = {}
-    allDirections = set()
     for rec in data:
         key = (rec["LineCode"], rec["StationCode"])
         if key not in byLine.keys():
@@ -486,7 +482,6 @@ def processLineTimeTable(inputFile):
     # 處理路線時刻表
     for direction in data:
         effective = direction["EffectiveFrom"]
-        keys = sortKeyStations[direction["Direction"]]
         for timetable in direction["Timetables"]:
             tableData = []
             for train in timetable["Trains"]:
