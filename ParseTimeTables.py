@@ -2,7 +2,6 @@
 import os, sys, io, json, traceback
 from datetime import datetime
 from os.path import join
-from TimeTableParser import TimeTableParser
 from multiprocessing import Pool, Value, Lock
 from Util import ConvertToHourMinute, ConvertToMinute
 

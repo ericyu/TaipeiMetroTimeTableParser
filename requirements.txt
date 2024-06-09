@@ -1,11 +1,2 @@
-beautifulsoup4==4.11.1
-certifi==2023.7.22
-charset-normalizer==2.0.12
-idna==3.7
-pdfminer==20191125
-pip==23.3
-pycryptodome==3.19.1
-requests==2.32.2
-setuptools==65.5.1
-soupsieve==2.3.2.post1
-urllib3==1.26.18
+pip==24.0
+ruff==0.4.8
