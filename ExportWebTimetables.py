@@ -1,15 +1,14 @@
 # -*- coding: utf8 -*-
 import codecs
 import io
+import re
 from pathlib import Path
-from itertools import *
-from Util import *
-from Util import StationMapping
+import Util
 from collections import Counter
 
 lineTimetablesDir = "output/Lines"
 outputDir = "output/web"
-stationMapping = StationMapping("StationList.json")
+stationMapping = Util.StationMapping("StationList.json")
 GATrackingCode = "[TRACKING_CODE]"
 
 sortKeyStations = {
@@ -89,11 +88,11 @@ def getTrainSortKey(train):
     if searchResult is None:
         # 利用第一站的時間，倒推應該是什麼時間
         return (
-            ConvertToMinute(train[0][1])
+            Util.ConvertToMinute(train[0][1])
             - BaseToOtherStationTime[keyStation][train[0][0]]
         )
     else:
-        return ConvertToMinute(searchResult[1])
+        return Util.ConvertToMinute(searchResult[1])
 
 
 def getHtmlFileHeader(title):
@@ -103,7 +102,7 @@ def getHtmlFileHeader(title):
 <head>
     <meta charset="utf-8">\n\
     """
-    result += GetGAScript(GATrackingCode)
+    result += Util.GetGAScript(GATrackingCode)
     result += "<title>" + title + "</title>"
     result += """\
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -252,7 +251,9 @@ def printLineFile(
     data,
     effectiveFrom,
 ):
-    sortReversed = (GetNumber(data[10][1][0]) - GetNumber(data[10][0][0])) == -1
+    sortReversed = (
+        Util.GetNumber(data[10][1][0]) - Util.GetNumber(data[10][0][0])
+    ) == -1
     stations = list(allStations)
     stations.sort(reverse=sortReversed)
     stationLookup = {val: idx for (idx, val) in enumerate(stations)}
@@ -295,7 +296,7 @@ def printLineFile(
     stationCount = len(stations)
     for i in range(stationCount):
         checkValues = [
-            ConvertToMinute(t[i])
+            Util.ConvertToMinute(t[i])
             for t in trains
             if t[i] != "" and t[i] != "==" and t[i] != "||"
         ]
@@ -306,8 +307,8 @@ def printLineFile(
                     "Warning at {} {} {} {}".format(
                         currentDaysPattern,
                         stations[i],
-                        ConvertToHourMinute(checkValues[a]),
-                        ConvertToHourMinute(sortedValues[a]),
+                        Util.ConvertToHourMinute(checkValues[a]),
+                        Util.ConvertToHourMinute(sortedValues[a]),
                     )
                 )
                 break
@@ -463,7 +464,7 @@ def printStationSummaryPage(stationName, data):
 
 def processLineTimeTable(inputFile):
     global currentSortDirection
-    data = ReadJson(inputFile)
+    data = Util.ReadJson(inputFile)
     lineCode = inputFile.stem
     # 先收集所有的站
     allStations = set()
@@ -527,7 +528,7 @@ def processLineTimeTable(inputFile):
                         stationData[key] = list()
                     stationData[key].append(
                         {
-                            "DepTime": ConvertToMinute(depTime),
+                            "DepTime": Util.ConvertToMinute(depTime),
                             "Dst": dst,
                             "First": isFirst,
                         }
