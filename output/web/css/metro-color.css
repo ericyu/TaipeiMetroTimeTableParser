@@ -4,23 +4,22 @@
 .bl { background-color: #0072c6; }
 
 .route-box {
-  font-size: 14px;
+  font-size: 16px;
   display: inline-block;
   position: relative;
   top: 0;
   left: 0;
   text-align: center;
-  min-width: 40px;
+  min-width: 32px;
   width: fit-content;
   border-radius: 5px;
-  padding: 10px 0;
-  margin-top: 5px;
-  margin-bottom: 5px;
-  font-size: 20px;
+  padding: 8px 0;
+  margin-top: 2px;
+  margin-bottom: 2px;
   font-weight: bold;
   color: #fff;
 }
 
 .route-box-larger {
-  min-width: 60px;
+  min-width: 50px;
 }

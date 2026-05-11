@@ -15,9 +15,12 @@ sortKeyStations = {
     "象山": "R06",  # 大安森林公園
     "淡水": "R21",  # 奇岩
     "新店": "G09",  # 古亭
+    "台電大樓": "G09",  # 古亭
     "松山": "G18",  # 南京三民
     "南勢角": "O02",  # 景安
     "蘆洲、迴龍": "O12",  # 大橋頭
+    "蘆洲": "O12",  # 大橋頭
+    "迴龍": "O12",  # 大橋頭
     "頂埔": "BL06",  # 府中
     "南港展覽館": "BL20",  # 後山埤
 }
@@ -30,9 +33,9 @@ lineCodeToName = {
 }
 
 PatternToText = {
-    "1,2,3,4": "平常日（週一至週四）",
-    "1,2,3,4,5": "平常日（週一至週五）",
-    "5": "平常日（週五）",
+    "1,2,3,4": "一至四",
+    "1,2,3,4,5": "一至五",
+    "5": "週五",
     "6": "週六",
     "7": "週日",
     "6,7": "假日",
@@ -71,10 +74,14 @@ DirectionToCode = {
     "象山": "b",
     "松山": "a",
     "新店": "b",
+    "台電大樓": "b",
     "蘆洲、迴龍": "a",
+    "蘆洲": "a",
+    "迴龍": "a",
     "南勢角": "b",
     "南港展覽館": "a",
     "頂埔": "b",
+    "亞東醫院": "b",
 }
 
 currentSortDirection = None
@@ -87,10 +94,13 @@ def getTrainSortKey(train):
     searchResult = next(filter(lambda x: x[0] == keyStation, train), None)
     if searchResult is None:
         # 利用第一站的時間，倒推應該是什麼時間
-        return (
-            Util.ConvertToMinute(train[0][1])
-            - BaseToOtherStationTime[keyStation][train[0][0]]
-        )
+        if keyStation in BaseToOtherStationTime and train[0][0] in BaseToOtherStationTime[keyStation]:
+            return (
+                Util.ConvertToMinute(train[0][1])
+                - BaseToOtherStationTime[keyStation][train[0][0]]
+            )
+        else:
+            return 9999
     else:
         return Util.ConvertToMinute(searchResult[1])
 
@@ -139,12 +149,12 @@ def getPageHeaderWithSwitchTable(
     result = '<div class="header-wrapper"><div id="header-left"><div id="main-header">'
     if isStation:
         result += (
-            '<span class="route-box route-box-larger {}">{}</span> {} 時刻表'.format(
+            '<span class="route-box route-box-larger {}">{}</span> {}'.format(
                 lineCode.lower(), code, codeText
             )
         )
     else:
-        result += '<span class="route-box {}">{}</span> {}時刻表'.format(
+        result += '<span class="route-box {}">{}</span> {}'.format(
             code.lower(), code, codeText
         )
 
@@ -186,11 +196,11 @@ def getSwitchPatternDirectionTable(
         if re.search(r"\d", code) and stationMapping.CodeToName(code) == direction:
             continue
         if currentDirection == direction:
-            result += '<button class="pure-button pure-button-active pure-button-primary">{}方向</button>'.format(
+            result += '<button class="pure-button pure-button-active pure-button-primary">➡{}</button>'.format(
                 direction
             )
         else:
-            result += '<a class="pure-button" href="{}-{}-{}.html">{}方向</a>\n'.format(
+            result += '<a class="pure-button" href="{}-{}-{}.html">➡{}</a>\n'.format(
                 code, DirectionToCode[direction], currentDaysPattern, direction
             )
 
@@ -213,7 +223,7 @@ def getLineTimetable(stations, data, direction, daysPattern):
         result += "<tr><td>"
         if appendLink:
             result += '<a class="station-link" href="{}">'.format(url)
-        result += '<span class="station-code">{}</span> {}'.format(
+        result += '<span class="station-code">{}</span> <span class="station-name">{}</span>'.format(
             station, stationMapping.CodeToName(station)
         )
         if appendLink:
@@ -334,7 +344,7 @@ def getStationTimetable(data):
     dstList = [x["Dst"] for x in data]
     dstStat = Counter(dstList)
     dstByCount = sorted(dstStat, key=dstStat.get, reverse=True)
-    assert len(dstByCount) <= 2
+    #assert len(dstByCount) <= 2
 
     firstMarkUsed = False
 

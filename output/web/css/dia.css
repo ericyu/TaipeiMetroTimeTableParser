@@ -4,7 +4,7 @@ body {
 }
 
 #main-header {
-  font-size: 140%;
+  font-size: 110%;
 }
 
 #effective-from {
@@ -115,6 +115,11 @@ body {
 
 .station-code {
   font-weight: bold;
+  font-size: 70%;
+}
+
+.station-name {
+    font-size: 80%;
 }
 
 .station-link {
