@@ -56,13 +56,17 @@ additionalTimeThreshold = {
     ("R08", "R07"): (2, None),
     ("R15", "R14"): (1, None),
     ("BL04", "BL05"): (1, None),
+    ("BL04", "BL03"): (1, None),
+    ("BL05", "BL04"): (1, None),
     ("BL09", "BL10"): (2, None),
+    ("BL10", "BL09"): (2, None),
     ("BL10", "BL11"): (1, None),
+    ("BL11", "BL10"): (1, None),
     ("BL11", "BL12"): (1, None),
-    ("BL13", "BL14"): (1, set([460, 471, 1139, 1158, 1167])),
+    ("BL12", "BL11"): (1, None),
     ("BL20", "BL21"): (1, None),
     ("BL21", "BL22"): (1, None),
-    ("BL14", "BL15"): (1, set([1200, 1243, 1286, 1329])),
+    ("BL14", "BL15"): (1, None),
 }
 
 SingleTrainStruct = namedtuple("SingleTrainStruct", ["Dst", "Schedule"])
@@ -107,7 +111,11 @@ def ChainTimeTables(direction, timetables, day):  # day for info only
 
 def appendLastStation(schedule):
     theLast = schedule[-1]
-    (dstStation, additionMins) = lastAppend[theLast["StationCode"]]
+    theLastStationCode = theLast["StationCode"]
+    lastAppendInfo = lastAppend.get(theLastStationCode, None)
+    if lastAppendInfo is None:
+        return
+    (dstStation, additionMins) = lastAppendInfo
     schedule.append(
         {
             "StationCode": dstStation,
@@ -145,9 +153,9 @@ def TraverseTimeTables(
                         if addTime[1] is None:
                             timeThreshold += addTime[0]
                         else:
+                            print(f"timeThreshold: {timeThreshold}")
                             if timeThreshold not in addTime[1]:
                                 timeThreshold += addTime[0]
-
                     foundIdx = bisect(currentTimetable, timeThreshold)
                     if foundIdx >= len(currentTimetable):
                         print(

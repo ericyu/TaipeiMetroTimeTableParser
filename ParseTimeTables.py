@@ -102,6 +102,17 @@ if __name__ == "__main__":
 
     with open("scheduledata.json", encoding="utf-8") as f:
         all_data = json.load(f)
+        
+    # deduplicate
+    temp_data = []
+    seen = set()
+    for item in all_data:
+        hashable_item = tuple((item["RouteID"], item["StationID"], item["Direction"], item["Direction"], item["DestinationStaionID"], tuple(sorted(item["ServiceDay"].items()))))
+        if hashable_item not in seen:
+            seen.add(hashable_item)
+            temp_data.append(item)
+    all_data = temp_data
+        
 
     # 根據 LineID (R, O, G, BL) 找出不同的營運模式並存成 dict
     line_ids = set(map(lambda x: x["LineID"], all_data))
